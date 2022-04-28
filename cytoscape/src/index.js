@@ -32,36 +32,55 @@ if (typeof cytoscape("core", "nodeHtmlLabel") === "undefined") {
 }
 
 
-let Nodes = []; 
+let Nodes = {};
+let expand_data = {}; 
 for(let i=0;i<node.length;i++){
         let obj;
         if(compound_child.includes(node[i])){
             const index = compound_child.indexOf(node[i]);
             const par_id = node.indexOf(compound_parent[index]);
             console.log(compound_child[index],compound_parent[index])
+
             obj = {data : {id : i, label : node[i], parent : par_id}};
+
+            if(node[par_id] == "transform"){
+                if(!(par_id in expand_data)) expand_data[par_id] = (String)(node[i]);
+                else expand_data[par_id] += (String)(node[i]);
+            }  
         }
         else obj = {data : {id : i, label : node[i]}};
         console.log(obj);
-        Nodes.push(obj);
+
+        Nodes[i] = (obj);
 }
-console.log("nodes = " + Nodes);
+// console.log("nodes = " + Nodes);
 
 let Edges = [];
 for(let i=0;i<first.length;i++){
-  const obj = {data : {source : idx[second[i]], target : idx[first[i]]}};
+  const obj = {data : {source : idx[second[i]], target : idx[first[i]],label:'edge'}};
   // console.log(i,obj);
   Edges.push(obj);
 }
 
-console.log("edges = " + Edges);
+// console.log("edges = " + Edges);
 
+let n = [];
+const keys = Object.keys(Nodes);
+for(let i=0;i<keys.length;i++){
+  if(keys[i] in expand_data){
+      Nodes[keys[i]].data.expand = expand_data[i];
+  }
+  n.push(Nodes[i]);
+}
+console.log("n = ");
+for (let i=0;i<n.length;i++) {
+  console.log(n[i]);
+}
 var elems = {
-    nodes : Nodes,
+    nodes : n,
     edges : Edges,
   };
 
-var childrenData = new Map(); //holds nodes' children info for restoration
 
 var cy = (window.cy = cytoscape({
   container: document.getElementById("cy"),
@@ -143,13 +162,13 @@ var cy = (window.cy = cytoscape({
         color: "#9e9e9e", //The colour of the element’s label.
         //"text-opacity": "0.87",             //The opacity of the label text, including its outline.
         "font-family": "Nokia Pure Regular", //A comma-separated list of font names to use on the label text.
-        "font-size": "10px", //The size of the label text.
+        "font-size": "15px", //The size of the label text.
         //font-style : A CSS font style to be applied to the label text.
         //font-weight: "",                    //A CSS font weight to be applied to the label text.
         "text-transform": "uppercase", //A transformation to apply to the label text; may be none, uppercase, or lowercase.
 
         "text-wrap": "ellipsis", //A wrapping style to apply to the label text; may be none for no wrapping (including manual newlines: \n), wrap for manual and/or autowrapping, or ellipsis to truncate the string and append ‘…’ based on text-max-width. Note that with wrap, text will always wrap on newlines (\n) and text may wrap on any breakable whitespace character — including zero-width spaces (\u200b).
-        // "text-max-width": "50", //The maximum width for wrapped text, applied when text-wrap is set to wrap or ellipsis. For only manual newlines (i.e. \n), set a very large value like 1000px such that only your newline characters would apply.
+        "text-max-width": "100", //The maximum width for wrapped text, applied when text-wrap is set to wrap or ellipsis. For only manual newlines (i.e. \n), set a very large value like 1000px such that only your newline characters would apply.
         //text-overflow-wrap : The characters that may be used for possible wrapping locations when a line overflows text-max-width; may be whitespace (default) or anywhere. Note that anywhere is suited to CJK, where the characters are in a grid and no whitespace exists. Using anywhere with text in the Latin alphabet, for example, will split words at arbitrary locations.
         //text-justification** : The justification of multiline (wrapped) labels; may be left, center, right, or auto (default). The auto value makes it so that a node’s label is justified along the node — e.g. a label on the right side of a node is left justified.
         "line-height": "16px", //The line height of multiline text, as a relative, unitless value. It specifies the vertical spacing between each line. With value 1 (default), the lines are stacked directly on top of one another with no additional whitespace between them. With value 2, for example, there is whitespace between each line equal to the visible height of a line of text.
@@ -189,9 +208,10 @@ var cy = (window.cy = cytoscape({
         width: "38px", //The width of the node’s body.
         height: "38px", //The height of the node’s body.
         shape: "ellipsis", //The shape of the node’s body. Note that each shape fits within the specified width and height, and so you may have to adjust width and height if you desire an equilateral shape (i.e. width !== height for several equilateral shapes). Only *rectangle shapes are supported by compounds, because the dimensions of a compound are defined by the bounding box of the children.
+        // position:'relative',
         //"shape-polygon-points": ""  //An array (or a space-separated string) of numbers ranging on [-1, 1], representing alternating x and y values (i.e. x1 y1 x2 y2, x3 y3 ...). This represents the points in the polygon for the node’s shape. The bounding box of the node is given by (-1, -1), (1, -1), (1, 1), (-1, 1). The node’s position is the origin (0, 0).
 
-        //"background-color": "#05A18F", //The colour of the node’s body.
+        "background-color": "#05A18F", //The colour of the node’s body.
         //"background-blacken": "",  //Blackens the node’s body for values from 0 to 1; whitens the node’s body for values from 0 to -1.
         //"background-opacity": "", ////The opacity level of the node’s background colour.
         //"background-fill": "", //The filling style of the node’s body; may be solid (default), linear-gradient, or radial-gradient.
@@ -288,12 +308,13 @@ var cy = (window.cy = cytoscape({
     {
       selector: "edge",
       style: {
-        width: 1,
-        "line-color": "#b8b8b8",
+        width: 2,
         "curve-style": "bezier",
-
+        "target-arrow-shape": "triangle",
         //LABEL
-        label: ""
+        // label: "data('label')",
+        // "text-background-color": "#ebcebeb",
+        // "background-color" : "red"
       }
     },
     {
@@ -310,12 +331,61 @@ var cy = (window.cy = cytoscape({
         "line-color": "#239df9"
       }
     },
-    {
-          selector : ".hidden",
-          style:{
-            display:'none',
-          },
-    },
+    // {
+    //       selector: "edge .dim,.dim",
+    //       style:{
+    //           visibility:'hidden',
+    //       }
+    // },
+    // {
+    //     selector:".dialogBox",
+    //     style:{
+    //         shape:'rectangle',
+    //         height:"500px",
+    //         width:'500px',
+    //         // position:'absolute',
+    //         right:'10px'
+    //     }
+    // },
+    // {
+    //   selector:".expandLabel",
+    //   style:{
+    //     visibility:'visible',
+    //     "text-max-width": "1000",
+    //   }
+  // }, 
+      {
+        selector:'.hidden',
+        style:{
+          'display' : 'none'
+        }
+      }, 
+      {
+        selector:'node.highlight',
+        style:{
+          'border-color': '#FFF','border-width': '2px',
+          "text-max-width": "1000",
+        }
+      },
+      {
+        selector:'node.semitransp',
+        style:{
+          'opacity': '0.1',
+          "text-max-width": "50",
+        }
+      },
+      {
+        selector:'edge.highlight',
+        style:{
+          'mid-target-arrow-color': '#FFF'
+        }
+      },
+      {
+        selector:'edge.semitransp',
+        style:{
+          'opacity': '0.1'
+        }
+      },
   ],
 
   layout: {
@@ -384,8 +454,10 @@ var cy = (window.cy = cytoscape({
   
 }));
 
+
+//---------- for collapse expand 
 const removed = {};
-cy.on('click','node',function(){
+cy.on('cxttapstart','node',function(){
   const node = cy.nodes('#' + this.id());
   const id = this.id();
   node.successors().targets().addClass("hidden");
@@ -399,10 +471,69 @@ cy.on('click','node',function(){
   if(removed[id]) node.successors().targets().addClass("hidden");
   else node.successors().targets().removeClass("hidden"); 
 });
+// ---------------
+
+let tapped={};
+cy.on('click', 'node', function(e){
+  if(!(this.id() in tapped)){
+    tapped[this.id()] = 1;
+  }
+  if(tapped[this.id()]){
+    var neigh = e.target;
+    cy.elements().difference(neigh.outgoers().union(neigh.incomers())).not(neigh).addClass('semitransp');
+    neigh.addClass('highlight').outgoers().addClass('highlight');
+  }
+  else{
+    var neigh = e.target;
+    cy.elements().removeClass('semitransp');
+    neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
+  }
+  tapped[this.id()] = 1 - tapped[this.id()];
+});
+
+// cy.on('mouseout', 'node', function(e){
+//   var neigh = e.target;
+//   cy.elements().removeClass('semitransp');
+// neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
+// });
+
+
+
+// cy.on('tap','node',function(){
+//   if(!this.hasClass('dialogBox')){
+//     cy.nodes().addClass('dim');
+//     this.removeClass('dim');
+//     cy.$('#' + this.id()).addClass('dialogBox');  
+//   }
+//   else{
+//     cy.nodes().removeClass('dim');
+//     this.removeClass('dialogBox');  
+//   }
+// })
+
+// let removedData;
+// cy.on('tap',"node :child",function(){
+//   // console.log(cy.$('#' + this.id()).hasClass('expandLabel'));
+//   if(!cy.$('#' + this.id()).hasClass('expandLabel')){
+//     // let someNodes = cy.nodes(`[id!='${this.id()}']`);
+//   //   this.removeClass('dim');
+//     cy.nodes().addClass('dim');
+//     cy.nodes().addClass('dim');
+//     // cy.nodes().addClass('dim');  
+//     cy.$('#' + this.id()).addClass('expandLabel');
+//   }
+//   else{
+//     cy.add(removedData);
+//     cy.$('#' + this.id()).removeClass(' expandLabel');  
+//     cy.nodes().removeClass('dim');
+//   }
+// })
 
 
 
 
+
+// -----------------------------------------------------------------
 // trial codes below 
 
 

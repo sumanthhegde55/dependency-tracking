@@ -45628,12 +45628,12 @@ module.exports = function (cy, api) {
 
 
 },{}],"../temp.js":[function(require,module,exports) {
-exports.first = ["(flag).flag -> IF(substring((chars).chars) == D\"~\")", "(name , address , gender).address -> (((((((D\"Address) * (layout_person.street)) * (D\",)) * (layout_person.city)) * (D\",)) * (layout_person.state)) * (D\")) * (layout_person.zip)", "(name , address , gender).gender -> layout_person.gender", "(name , address , gender).name -> (((((D\"Name) * (layout_person.firstname)) * (D\")) * (layout_person.middleinitial)) * (D\")) * (layout_person.lastname)", "16", "DeclareData exported", "DeclareData exported", "GetDetails", "MyFunc", "PrintFunc", "Xform", "count", "count", "ds", "filter1", "n", "normalize1", "normalize2", "record", "transform", "transform", "{\n\tDATASET : ds\n\tNO_ITERATIONS : 16\n\tTRANSFORMATION : Xform\n}.flag == 1"];
-exports.second = ["Xform", "GetDetails", "GetDetails", "GetDetails", "normalize1", "count", "normalize2", "normalize2", "output1", "output2", "normalize1", "MyFunc", "normalize2", "normalize1", "count", "filter1", "n", "PrintFunc", "ds", "GetDetails", "Xform", "filter1"];
-exports.node = ["(flag).flag -> IF(substring((chars).chars) == D\"~\")", "(name , address , gender).address -> (((((((D\"Address) * (layout_person.street)) * (D\",)) * (layout_person.city)) * (D\",)) * (layout_person.state)) * (D\")) * (layout_person.zip)", "(name , address , gender).gender -> layout_person.gender", "(name , address , gender).name -> (((((D\"Name) * (layout_person.firstname)) * (D\")) * (layout_person.middleinitial)) * (D\")) * (layout_person.lastname)", "16", "DeclareData exported", "GetDetails", "MyFunc", "PrintFunc", "Xform", "count", "ds", "filter1", "n", "normalize1", "normalize2", "output1", "output2", "record", "transform", "{\n\tDATASET : ds\n\tNO_ITERATIONS : 16\n\tTRANSFORMATION : Xform\n}.flag == 1"];
+exports.first = ["(flag).flag -> IF(substring((chars).chars) == D\"~\")", "(name , address , gender).address -> (((((((D\"Address) * (layout_person.street)) * (D\",)) * (layout_person.city)) * (D\",)) * (layout_person.state)) * (D\")) * (layout_person.zip)", "(name , address , gender).gender -> layout_person.gender", "(name , address , gender).name -> (((((D\"Name) * (layout_person.firstname)) * (D\")) * (layout_person.middleinitial)) * (D\")) * (layout_person.lastname)", "16", "DeclareData exported", "DeclareData exported", "GetDetails", "MyFunc", "PrintFunc", "Xform", "count1", "count2", "ds", "filter1", "n", "normalize1", "normalize2", "record", "{\n\tDATASET : ds\n\tNO_ITERATIONS : 16\n\tTRANSFORMATION : Xform\n}.flag == 1"];
+exports.second = ["Xform", "GetDetails", "GetDetails", "GetDetails", "normalize1", "count2", "normalize2", "normalize2", "output1", "output2", "normalize1", "MyFunc", "normalize2", "normalize1", "count1", "filter1", "n", "PrintFunc", "ds", "filter1"];
+exports.node = ["(flag).flag -> IF(substring((chars).chars) == D\"~\")", "(name , address , gender).address -> (((((((D\"Address) * (layout_person.street)) * (D\",)) * (layout_person.city)) * (D\",)) * (layout_person.state)) * (D\")) * (layout_person.zip)", "(name , address , gender).gender -> layout_person.gender", "(name , address , gender).name -> (((((D\"Name) * (layout_person.firstname)) * (D\")) * (layout_person.middleinitial)) * (D\")) * (layout_person.lastname)", "16", "DeclareData exported", "GetDetails", "MyFunc", "PrintFunc", "Xform", "count1", "count2", "ds", "filter1", "n", "normalize1", "normalize2", "output1", "output2", "record", "{\n\tDATASET : ds\n\tNO_ITERATIONS : 16\n\tTRANSFORMATION : Xform\n}.flag == 1"];
 ;
-exports.compound_child = ["transform"];
-exports.compound_parent = ["GetDetails"];
+exports.compound_child = ["(name , address , gender).gender -> layout_person.gender", "transform3", "(flag).flag -> IF(substring((chars).chars) == D\"~\")", "(name , address , gender).address -> (((((((D\"Address) * (layout_person.street)) * (D\",)) * (layout_person.city)) * (D\",)) * (layout_person.state)) * (D\")) * (layout_person.zip)", "(name , address , gender).name -> (((((D\"Name) * (layout_person.firstname)) * (D\")) * (layout_person.middleinitial)) * (D\")) * (layout_person.lastname)", "transform1"];
+exports.compound_parent = ["GetDetails", "Xform", "Xform", "GetDetails", "GetDetails", "GetDetails"];
 },{}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -45676,7 +45676,8 @@ if (typeof (0, _cytoscape.default)("core", "nodeHtmlLabel") === "undefined") {
   nodeHtmlLabel(_cytoscape.default);
 }
 
-var Nodes = [];
+var Nodes = {};
+var expand_data = {};
 
 for (var _i = 0; _i < node.length; _i++) {
   var obj = void 0;
@@ -45692,6 +45693,10 @@ for (var _i = 0; _i < node.length; _i++) {
         parent: par_id
       }
     };
+
+    if (node[par_id] == "transform") {
+      if (!(par_id in expand_data)) expand_data[par_id] = String(node[_i]);else expand_data[par_id] += String(node[_i]);
+    }
   } else obj = {
     data: {
       id: _i,
@@ -45700,30 +45705,46 @@ for (var _i = 0; _i < node.length; _i++) {
   };
 
   console.log(obj);
-  Nodes.push(obj);
-}
+  Nodes[_i] = obj;
+} // console.log("nodes = " + Nodes);
 
-console.log("nodes = " + Nodes);
+
 var Edges = [];
 
 for (var _i2 = 0; _i2 < first.length; _i2++) {
   var _obj = {
     data: {
       source: idx[second[_i2]],
-      target: idx[first[_i2]]
+      target: idx[first[_i2]],
+      label: 'edge'
     }
   }; // console.log(i,obj);
 
   Edges.push(_obj);
+} // console.log("edges = " + Edges);
+
+
+var n = [];
+var keys = Object.keys(Nodes);
+
+for (var _i3 = 0; _i3 < keys.length; _i3++) {
+  if (keys[_i3] in expand_data) {
+    Nodes[keys[_i3]].data.expand = expand_data[_i3];
+  }
+
+  n.push(Nodes[_i3]);
 }
 
-console.log("edges = " + Edges);
+console.log("n = ");
+
+for (var _i4 = 0; _i4 < n.length; _i4++) {
+  console.log(n[_i4]);
+}
+
 var elems = {
-  nodes: Nodes,
+  nodes: n,
   edges: Edges
 };
-var childrenData = new Map(); //holds nodes' children info for restoration
-
 var cy = window.cy = (0, _cytoscape.default)({
   container: document.getElementById("cy"),
   boxSelectionEnabled: false,
@@ -45797,7 +45818,7 @@ var cy = window.cy = (0, _cytoscape.default)({
       //"text-opacity": "0.87",             //The opacity of the label text, including its outline.
       "font-family": "Nokia Pure Regular",
       //A comma-separated list of font names to use on the label text.
-      "font-size": "10px",
+      "font-size": "15px",
       //The size of the label text.
       //font-style : A CSS font style to be applied to the label text.
       //font-weight: "",                    //A CSS font weight to be applied to the label text.
@@ -45805,7 +45826,8 @@ var cy = window.cy = (0, _cytoscape.default)({
       //A transformation to apply to the label text; may be none, uppercase, or lowercase.
       "text-wrap": "ellipsis",
       //A wrapping style to apply to the label text; may be none for no wrapping (including manual newlines: \n), wrap for manual and/or autowrapping, or ellipsis to truncate the string and append ‘…’ based on text-max-width. Note that with wrap, text will always wrap on newlines (\n) and text may wrap on any breakable whitespace character — including zero-width spaces (\u200b).
-      // "text-max-width": "50", //The maximum width for wrapped text, applied when text-wrap is set to wrap or ellipsis. For only manual newlines (i.e. \n), set a very large value like 1000px such that only your newline characters would apply.
+      "text-max-width": "100",
+      //The maximum width for wrapped text, applied when text-wrap is set to wrap or ellipsis. For only manual newlines (i.e. \n), set a very large value like 1000px such that only your newline characters would apply.
       //text-overflow-wrap : The characters that may be used for possible wrapping locations when a line overflows text-max-width; may be whitespace (default) or anywhere. Note that anywhere is suited to CJK, where the characters are in a grid and no whitespace exists. Using anywhere with text in the Latin alphabet, for example, will split words at arbitrary locations.
       //text-justification** : The justification of multiline (wrapped) labels; may be left, center, right, or auto (default). The auto value makes it so that a node’s label is justified along the node — e.g. a label on the right side of a node is left justified.
       "line-height": "16px",
@@ -45849,8 +45871,10 @@ var cy = window.cy = (0, _cytoscape.default)({
       //The height of the node’s body.
       shape: "ellipsis",
       //The shape of the node’s body. Note that each shape fits within the specified width and height, and so you may have to adjust width and height if you desire an equilateral shape (i.e. width !== height for several equilateral shapes). Only *rectangle shapes are supported by compounds, because the dimensions of a compound are defined by the bounding box of the children.
+      // position:'relative',
       //"shape-polygon-points": ""  //An array (or a space-separated string) of numbers ranging on [-1, 1], representing alternating x and y values (i.e. x1 y1 x2 y2, x3 y3 ...). This represents the points in the polygon for the node’s shape. The bounding box of the node is given by (-1, -1), (1, -1), (1, 1), (-1, 1). The node’s position is the origin (0, 0).
-      //"background-color": "#05A18F", //The colour of the node’s body.
+      "background-color": "#05A18F",
+      //The colour of the node’s body.
       //"background-blacken": "",  //Blackens the node’s body for values from 0 to 1; whitens the node’s body for values from 0 to -1.
       //"background-opacity": "", ////The opacity level of the node’s background colour.
       //"background-fill": "", //The filling style of the node’s body; may be solid (default), linear-gradient, or radial-gradient.
@@ -45936,11 +45960,13 @@ var cy = window.cy = (0, _cytoscape.default)({
   {
     selector: "edge",
     style: {
-      width: 1,
-      "line-color": "#b8b8b8",
+      width: 2,
       "curve-style": "bezier",
-      //LABEL
-      label: ""
+      "target-arrow-shape": "triangle" //LABEL
+      // label: "data('label')",
+      // "text-background-color": "#ebcebeb",
+      // "background-color" : "red"
+
     }
   }, {
     selector: "edge.hover",
@@ -45954,10 +45980,56 @@ var cy = window.cy = (0, _cytoscape.default)({
       width: 1,
       "line-color": "#239df9"
     }
-  }, {
-    selector: ".hidden",
+  }, // {
+  //       selector: "edge .dim,.dim",
+  //       style:{
+  //           visibility:'hidden',
+  //       }
+  // },
+  // {
+  //     selector:".dialogBox",
+  //     style:{
+  //         shape:'rectangle',
+  //         height:"500px",
+  //         width:'500px',
+  //         // position:'absolute',
+  //         right:'10px'
+  //     }
+  // },
+  // {
+  //   selector:".expandLabel",
+  //   style:{
+  //     visibility:'visible',
+  //     "text-max-width": "1000",
+  //   }
+  // }, 
+  {
+    selector: '.hidden',
     style: {
-      display: 'none'
+      'display': 'none'
+    }
+  }, {
+    selector: 'node.highlight',
+    style: {
+      'border-color': '#FFF',
+      'border-width': '2px',
+      "text-max-width": "1000"
+    }
+  }, {
+    selector: 'node.semitransp',
+    style: {
+      'opacity': '0.1',
+      "text-max-width": "50"
+    }
+  }, {
+    selector: 'edge.highlight',
+    style: {
+      'mid-target-arrow-color': '#FFF'
+    }
+  }, {
+    selector: 'edge.semitransp',
+    style: {
+      'opacity': '0.1'
     }
   }],
   layout: {
@@ -46016,9 +46088,10 @@ var cy = window.cy = (0, _cytoscape.default)({
   //   }
   // ],
   elements: elems
-});
+}); //---------- for collapse expand 
+
 var removed = {};
-cy.on('click', 'node', function () {
+cy.on('cxttapstart', 'node', function () {
   var node = cy.nodes('#' + this.id());
   var id = this.id();
   node.successors().targets().addClass("hidden");
@@ -46031,7 +46104,60 @@ cy.on('click', 'node', function () {
 
   console.log(removed[id]);
   if (removed[id]) node.successors().targets().addClass("hidden");else node.successors().targets().removeClass("hidden");
-}); // trial codes below 
+}); // ---------------
+
+var tapped = {};
+cy.on('click', 'node', function (e) {
+  if (!(this.id() in tapped)) {
+    tapped[this.id()] = 1;
+  }
+
+  if (tapped[this.id()]) {
+    var neigh = e.target;
+    cy.elements().difference(neigh.outgoers().union(neigh.incomers())).not(neigh).addClass('semitransp');
+    neigh.addClass('highlight').outgoers().addClass('highlight');
+  } else {
+    var neigh = e.target;
+    cy.elements().removeClass('semitransp');
+    neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
+  }
+
+  tapped[this.id()] = 1 - tapped[this.id()];
+}); // cy.on('mouseout', 'node', function(e){
+//   var neigh = e.target;
+//   cy.elements().removeClass('semitransp');
+// neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
+// });
+// cy.on('tap','node',function(){
+//   if(!this.hasClass('dialogBox')){
+//     cy.nodes().addClass('dim');
+//     this.removeClass('dim');
+//     cy.$('#' + this.id()).addClass('dialogBox');  
+//   }
+//   else{
+//     cy.nodes().removeClass('dim');
+//     this.removeClass('dialogBox');  
+//   }
+// })
+// let removedData;
+// cy.on('tap',"node :child",function(){
+//   // console.log(cy.$('#' + this.id()).hasClass('expandLabel'));
+//   if(!cy.$('#' + this.id()).hasClass('expandLabel')){
+//     // let someNodes = cy.nodes(`[id!='${this.id()}']`);
+//   //   this.removeClass('dim');
+//     cy.nodes().addClass('dim');
+//     cy.nodes().addClass('dim');
+//     // cy.nodes().addClass('dim');  
+//     cy.$('#' + this.id()).addClass('expandLabel');
+//   }
+//   else{
+//     cy.add(removedData);
+//     cy.$('#' + this.id()).removeClass(' expandLabel');  
+//     cy.nodes().removeClass('dim');
+//   }
+// })
+// -----------------------------------------------------------------
+// trial codes below 
 // cy.nodes().addClass('hidden');
 // cy.$('#6').removeClass('hidden');
 // setTimeout(() => {
@@ -46169,7 +46295,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62004" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52049" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

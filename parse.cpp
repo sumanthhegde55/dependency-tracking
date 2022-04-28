@@ -19,6 +19,7 @@ unordered_map<string,bool> vis; // data strucutre for dfs
 vector<pair<string,struct node>> mp; 
 unordered_map<string,pair<string,string>> fieldMapper;
 unordered_map<string,vector<string>> transforms;
+unordered_map<string,int> counts;
 //dfs implementation
 //mp -> map data struture between token and right part of IR //unordered_map<string,struct node> 
 //d -> map storing set of dependencies for each token //unordered_map<string,set<string>>
@@ -102,7 +103,7 @@ ofstream File("temp.js");
 
 set<pair<string,string>> e;
 unordered_map<string,string> compound_nodes;
-void addedge(string node,string present,unordered_map<string,struct node> &mp2,int &n_count,int &f_count,string &compound_parent){
+void addedge(string node,string present,unordered_map<string,struct node> &mp2,string &compound_parent){
 
     if(fieldMapper[node].second == "others" || fieldMapper[node].first.size() == 0) return;
 
@@ -115,52 +116,61 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,i
                 e.insert({t,present});
 
             // if(fieldMapper[node].first == "myrec") File << "in sym "<< present << "\n"; 
-            if(compound_parent.length() > 0) compound_nodes[fieldMapper[node].first] = compound_parent;
+            if(compound_parent.length() > 0){
+                // File << fieldMapper[node].first << " " << compound_parent << endl;
+                compound_nodes[fieldMapper[node].first] = compound_parent;
+            }
 
             string tmp;
             if(fieldMapper[node].second != "dataset"){
                 tmp = compound_parent;
                 compound_parent = mp2[node].annotation.substr(7,INT_MAX);
             }
-            addedge(mp2[node].right[0],mp2[node].annotation.substr(7,INT_MAX) ,mp2,n_count,f_count,compound_parent);
+            addedge(mp2[node].right[0],mp2[node].annotation.substr(7,INT_MAX) ,mp2,compound_parent);
             if(fieldMapper[node].second != "dataset") compound_parent = tmp;
     }
 
     else if(mp2[node].annotation.length() > 0){
-        addedge(mp2[node].right[0],present,mp2,n_count,f_count,compound_parent);
+        addedge(mp2[node].right[0],present,mp2,compound_parent);
     }
 
     else if(mp2[node].func.size() > 0){
         
         string str = mp2[node].func[0];
         if(compound_parent.length() > 0){
+            // File << str << " " << fieldMapper[node].first << " " << compound_parent << endl;
             if(str == "record") compound_nodes[str] = compound_parent; 
             else compound_nodes[fieldMapper[node].first] = compound_parent;
         }
 
         if(str == "newusertable"){
-            addedge(mp2[node].right[0],present,mp2,n_count,f_count,compound_parent);
+            addedge(mp2[node].right[0],present,mp2,compound_parent);
             return;
         }
         else if(str == "inlinetable"){
-            addedge(mp2[node].right[1],present,mp2,n_count,f_count,compound_parent);
+            addedge(mp2[node].right[1],present,mp2,compound_parent);
             return;
         }
         else if(str == "sort"){
 
             //// str = "\"" + fieldMapper[node].first + "\"";
             str = fieldMapper[node].first;
-            // File << str << " -> " << present << endl;
+            // File << str << " -> " << present << endl;    
             e.insert({str,present});
 
-            addedge(mp2[node].right[0],str,mp2,n_count,f_count,compound_parent);
+            addedge(mp2[node].right[0],str,mp2,compound_parent);
             return;
         }
         else if(str == "transform"){
             ////str = "\"" + fieldMapper[node].first + "\"";
-            //** str = fieldMapper[node].first;
-            for(auto x : transforms[node])
+            //  str = fieldMapper[node].first;
+            // File << present << endl;
+            for(auto x : transforms[node]){
+                
+                // File << x << " " << present << endl;
                 e.insert({x,present});
+                compound_nodes[x] = compound_parent;
+            }
             //// replace( str.begin(), str.end(), '\"', '\'');
             //// str = "\"" + str.substr(1);
             ////str = str.substr(0,str.size()-1) + "\"";
@@ -169,31 +179,36 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,i
 
         else if(str == "count" || str == "filter"){
             if(str == "filter"){
-                 str += to_string(f_count++);
+                 str += to_string(++counts["f_count"]);
                 
                 // File << "\"" + fieldMapper[mp2[node].right[1]].first + "\"" << " -> " << str << endl;
                  ////e.insert({"\"" + fieldMapper[mp2[node].right[1]].first + "\"",str});
                  e.insert({fieldMapper[mp2[node].right[1]].first,str});
 
             }
-            addedge(mp2[node].right[0],str,mp2,n_count,f_count,compound_parent);
+            else str += to_string(++counts["c_count"]);
+            addedge(mp2[node].right[0],str,mp2,compound_parent);
         }
         else if(str == "hqlproject"){
             str = "Project(DATASET : " + fieldMapper[mp2[node].right[0]].first + " , ";
             str += "TRANSFORM : " + fieldMapper[mp2[node].right[1]].first + ")";
             ////str = "\"" + str + "\"";
             e.insert({str,present});
-            for(auto x : mp2[node].right) addedge(x,str,mp2,n_count,f_count,compound_parent);
+            for(auto x : mp2[node].right) addedge(x,str,mp2,compound_parent);
         }
         else if(str == "normalize" || str == "output" || str == "join"){
-
-            if(str == "normalize") str += to_string(n_count++);
+            string tmp;
+            if(str == "normalize"){
+                // tmp = compound_parent;
+                str += to_string(++counts["n_count"]);
+                // compound_parent = str;
+            }
             if(str == "output") str = present;
 
             for(auto x : mp2[node].right){
-                addedge(x,str,mp2,n_count,f_count,compound_parent);
+                addedge(x,str,mp2,compound_parent);
             }
-                
+            // if(str == "normalize") compound_parent = tmp;
         }
         // else if(str == "equality" || str == "conditional") 
         //     File << fieldMapper[node].first << " -> " << present << endl;
@@ -204,7 +219,7 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,i
             
             e.insert({fieldMapper[node].first,present});
         }
-        else if(str != present){
+        else if(str != present && str != "transform"){
             // File << str << " -> " << present << endl; 
                e.insert({str,present});
         }
@@ -480,6 +495,10 @@ int main(){
             else{
                 fieldMapper[le] = {y.func[0],"others"};
             }
+            if(fieldMapper[le].first == "transform"){
+                fieldMapper[le].first += to_string(++counts["transform"]);
+                // fieldMapper[le].second = fieldMapper[le].first;
+            }
         }
     }
 
@@ -514,7 +533,6 @@ int main(){
     File << "exports.first = [";
 
     int counter  = 0;
-    int normalize_count = 1, filter_count = 1;
     for(auto x : outputs){
         counter++;
 
@@ -522,7 +540,7 @@ int main(){
         // while(fieldMapper[mp2[x].right[0]].second == "output") x = mp2[x].right[0]; 
         // File << mp2[x].right[0] << endl << endl;
         string tmp = "";
-        for(auto y : mp2[x].right) addedge(y,"output" + to_string(counter)  ,mp2 , normalize_count, filter_count, tmp);
+        for(auto y : mp2[x].right) addedge(y,"output" + to_string(counter)  ,mp2 , tmp);
     }
 
     set<string> nodes;
