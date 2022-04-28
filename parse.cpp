@@ -18,7 +18,7 @@ struct node {
 unordered_map<string,bool> vis; // data strucutre for dfs
 vector<pair<string,struct node>> mp; 
 unordered_map<string,pair<string,string>> fieldMapper;
-
+unordered_map<string,vector<string>> transforms;
 //dfs implementation
 //mp -> map data struture between token and right part of IR //unordered_map<string,struct node> 
 //d -> map storing set of dependencies for each token //unordered_map<string,set<string>>
@@ -158,7 +158,9 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,i
         }
         else if(str == "transform"){
             ////str = "\"" + fieldMapper[node].first + "\"";
-            str = fieldMapper[node].first;
+            //** str = fieldMapper[node].first;
+            for(auto x : transforms[node])
+                e.insert({x,present});
             //// replace( str.begin(), str.end(), '\"', '\'');
             //// str = "\"" + str.substr(1);
             ////str = str.substr(0,str.size()-1) + "\"";
@@ -225,7 +227,7 @@ int main(){
     //redirecting ip and op
     ifstream inp;
     freopen("output.txt", "w", stdout);
-    inp.open("input4.txt");
+    inp.open("input2.txt");
     vector<string> txt;
     string s;
 	while(getline(inp,s)){
@@ -423,23 +425,25 @@ int main(){
                 fieldMapper[le] = make_pair(op,"concatenate");
             }
             else if((y.func[0] == "transform" || y.func[0] == "hqlproject")){
-                string op = "{\n";
+                // string op = "{\n";
                 for(auto z : y.right){
-                   if(fieldMapper[z].second != "others") op += "\t" + fieldMapper[z].first + " , \n";
+                //    if(fieldMapper[z].second != "others") op += "\t" + fieldMapper[z].first + " , \n";
+                      transforms[le].push_back(fieldMapper[z].first);
                 }
-                op += "}";
-                fieldMapper[le] = {op,y.func[0]};
+                // op += "}";
+                fieldMapper[le] = {y.func[0],y.func[0]};
             }
             else if(y.func[0] == "createrow"){
                 fieldMapper[le] = {"(" + fieldMapper[y.right[0]].first + ")","row"};
             }
             else if(y.func[0] == "transformlist"){
-                string op = "[\n";
+                // string op = "[\n";
                 for(auto z : y.right){
-                    op += "\t" + fieldMapper[z].first + " , \n";
+                    // op += "\t" + fieldMapper[z].first + " , \n";
+                    transforms[le].push_back(fieldMapper[z].first);
                 }
-                op += "]";
-                fieldMapper[le] = {op,"transformlist"};
+                // op += "]";
+                fieldMapper[le] = {y.func[0],"transformlist"};
             }
             else if(y.func[0] == "output"){
                 string op;
