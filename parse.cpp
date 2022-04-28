@@ -103,6 +103,8 @@ ofstream File("temp.js");
 
 set<pair<string,string>> e;
 unordered_map<string,string> compound_nodes;
+vector<vector<string>> labels;
+
 void addedge(string node,string present,unordered_map<string,struct node> &mp2,string &compound_parent){
 
     if(fieldMapper[node].second == "others" || fieldMapper[node].first.size() == 0) return;
@@ -112,8 +114,8 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             // File << "\"" + mp2[node].annotation.substr(7,INT_MAX) + "\"" << " -> " << present << endl;
             string t = mp2[node].annotation.substr(7,INT_MAX);
             //// e.insert({"\"" + t + "\"",present});
-
-                e.insert({t,present});
+            labels.push_back(vector<string>{present,t,fieldMapper[node].second});
+            e.insert({t,present});
 
             // if(fieldMapper[node].first == "myrec") File << "in sym "<< present << "\n"; 
             if(compound_parent.length() > 0){
@@ -168,6 +170,7 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             for(auto x : transforms[node]){
                 
                 // File << x << " " << present << endl;
+                labels.push_back(vector<string>{present,x,"assign"});
                 e.insert({x,present});
                 compound_nodes[x] = compound_parent;
             }
@@ -183,6 +186,7 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
                 
                 // File << "\"" + fieldMapper[mp2[node].right[1]].first + "\"" << " -> " << str << endl;
                  ////e.insert({"\"" + fieldMapper[mp2[node].right[1]].first + "\"",str});
+                 labels.push_back(vector<string>{str,fieldMapper[mp2[node].right[1]].first,fieldMapper[mp2[node].right[1]].second});
                  e.insert({fieldMapper[mp2[node].right[1]].first,str});
 
             }
@@ -193,6 +197,7 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             str = "Project(DATASET : " + fieldMapper[mp2[node].right[0]].first + " , ";
             str += "TRANSFORM : " + fieldMapper[mp2[node].right[1]].first + ")";
             ////str = "\"" + str + "\"";
+            labels.push_back(vector<string>{present,str,fieldMapper[node].second});
             e.insert({str,present});
             for(auto x : mp2[node].right) addedge(x,str,mp2,compound_parent);
         }
@@ -206,6 +211,17 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             if(str == "output") str = present;
 
             for(auto x : mp2[node].right){
+                
+                if(fieldMapper[x].second == "others") continue;
+                string to = fieldMapper[x].first;
+                if(to == "count") to += to_string(counts["c_count"] + 1);
+                vector<string> v{str,to};
+
+                if(fieldMapper[x].second == "Constant") v.push_back("ITERATIONS");
+                else v.push_back(fieldMapper[x].second);
+
+                labels.push_back(v);
+
                 addedge(x,str,mp2,compound_parent);
             }
             // if(str == "normalize") compound_parent = tmp;
@@ -216,11 +232,13 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
 
             //    File << "\"" + fieldMapper[node].first + "\"" << " -> " << present << endl;
             ////e.insert({ "\"" + fieldMapper[node].first + "\"",present});
-            
+            labels.push_back(vector<string>{present,fieldMapper[node].first,fieldMapper[node].second});
             e.insert({fieldMapper[node].first,present});
         }
         else if(str != present && str != "transform"){
             // File << str << " -> " << present << endl; 
+               if(present.substr(0,4) != "norm") labels.push_back(vector<string>{present,str,fieldMapper[node].second});
+               else labels.push_back(vector<string>{present,str,"ITERATIONS"});
                e.insert({str,present});
         }
     }
@@ -578,8 +596,18 @@ int main(){
         if(x.second[0] != '`') s2 = "`" + x.second + "`";
         File << s2 << ",";
     }
+    File << "];\n";
+    File << "exports.labels=[";
+    for(auto x : labels){
+        string s;
+        if(x[0] != "`") s = "`" + x[0] + "`";
+        File << s << ",";
+        if(x[1] != "`") s = "`" + x[1] + "`";
+        File << s << ",";
+        if(x[2] != "`") s = "`" + x[2] + "`";
+        File << s << ",";
+    }
     File << "];";
-
     File.close();
 
 

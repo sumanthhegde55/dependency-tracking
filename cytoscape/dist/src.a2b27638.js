@@ -45634,6 +45634,7 @@ exports.node = ["(flag).flag -> IF(substring((chars).chars) == D\"~\")", "(name 
 ;
 exports.compound_child = ["(name , address , gender).gender -> layout_person.gender", "transform3", "(flag).flag -> IF(substring((chars).chars) == D\"~\")", "(name , address , gender).address -> (((((((D\"Address) * (layout_person.street)) * (D\",)) * (layout_person.city)) * (D\",)) * (layout_person.state)) * (D\")) * (layout_person.zip)", "(name , address , gender).name -> (((((D\"Name) * (layout_person.firstname)) * (D\")) * (layout_person.middleinitial)) * (D\")) * (layout_person.lastname)", "transform1"];
 exports.compound_parent = ["GetDetails", "Xform", "Xform", "GetDetails", "GetDetails", "GetDetails"];
+exports.labels = ["output1", "MyFunc", "dataset", "filter1", "{\n\tDATASET : ds\n\tNO_ITERATIONS : 16\n\tTRANSFORMATION : Xform\n}.flag == 1", "equality", "filter1", "n", "dataset", "normalize1", "ds", "dataset", "normalize1", "ds", "dataset", "ds", "record", "record", "normalize1", "16", "ITERATIONS", "normalize1", "Xform", "transform", "normalize1", "Xform", "transform", "Xform", "(flag).flag -> IF(substring((chars).chars) == D\"~\")", "assign", "n", "normalize1", "normalize", "count1", "filter1", "filter", "MyFunc", "count1", "dataset", "output2", "PrintFunc", "dataset", "output2", "PrintFunc", "dataset", "normalize2", "DeclareData exported", "dataset", "normalize2", "DeclareData exported", "dataset", "normalize2", "count2", "count", "count2", "DeclareData exported", "dataset", "normalize2", "count2", "ITERATIONS", "normalize2", "GetDetails", "transform", "normalize2", "GetDetails", "transform", "GetDetails", "(name , address , gender).name -> (((((D\"Name) * (layout_person.firstname)) * (D\")) * (layout_person.middleinitial)) * (D\")) * (layout_person.lastname)", "assign", "GetDetails", "(name , address , gender).gender -> layout_person.gender", "assign", "GetDetails", "(name , address , gender).address -> (((((((D\"Address) * (layout_person.street)) * (D\",)) * (layout_person.city)) * (D\",)) * (layout_person.state)) * (D\")) * (layout_person.zip)", "assign", "PrintFunc", "normalize2", "normalize"];
 },{}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -45654,6 +45655,12 @@ var second = data.second;
 var node = data.node;
 var compound_child = data.compound_child;
 var compound_parent = data.compound_parent;
+var label_arr = data.labels;
+/*every 3 elements in the array forms [source,target,label] for an edge
+  i.e. for some k, 
+  data.labels[3*k] = source_name, data.labels[3*k+1] = target_name, data.labels[3*k+2] = label
+*/
+
 var arr = compound_parent;
 var idx = {};
 
@@ -45710,13 +45717,23 @@ for (var _i = 0; _i < node.length; _i++) {
 
 
 var Edges = [];
+var LabelNames = {};
+
+for (var j = 0; j < label_arr.length; j += 3) {
+  var idx_source = node.indexOf(label_arr[j]);
+  var idx_target = node.indexOf(label_arr[j + 1]);
+  LabelNames[idx_source + "-" + idx_target] = label_arr[j + 2];
+}
 
 for (var _i2 = 0; _i2 < first.length; _i2++) {
+  var s = idx[second[_i2]] + "-" + idx[first[_i2]];
+  var l = "edge";
+  if (s in LabelNames) l = LabelNames[s];
   var _obj = {
     data: {
       source: idx[second[_i2]],
       target: idx[first[_i2]],
-      label: 'edge'
+      label: l
     }
   }; // console.log(i,obj);
 
@@ -45818,8 +45835,6 @@ var cy = window.cy = (0, _cytoscape.default)({
       //"text-opacity": "0.87",             //The opacity of the label text, including its outline.
       "font-family": "Nokia Pure Regular",
       //A comma-separated list of font names to use on the label text.
-      "font-size": "15px",
-      //The size of the label text.
       //font-style : A CSS font style to be applied to the label text.
       //font-weight: "",                    //A CSS font weight to be applied to the label text.
       "text-transform": "uppercase",
@@ -45852,14 +45867,27 @@ var cy = window.cy = (0, _cytoscape.default)({
       //text-outline-color : The colour of the outline around the element’s label text.
       //text-outline-opacity : The opacity of the outline on label text.
       //text-outline-width : The size of the outline on label text.
-      "text-background-color": "#ebebeb",
-      //A colour to apply on the text background.
       "text-background-opacity": "1",
       //The opacity of the label background; the background is disabled for 0 (default value).
       "text-background-shape": "roundrectangle",
       //The shape to use for the label background, can be rectangle or round-rectangle.
       "text-background-padding": "3px" //A padding on the background of the label (e.g 5px); zero padding is used by default.
 
+    }
+  }, {
+    selector: "node:label",
+    css: {
+      "text-background-color": "#ebebeb",
+      //A colour to apply on the text background.
+      "font-size": "15px" //The size of the label text.
+
+    }
+  }, {
+    selector: "edge:label",
+    css: {
+      "text-background-color": "#ffe",
+      //A colour to apply on the text background.
+      "font-size": "10px"
     }
   }, //NODE
   {
@@ -46295,7 +46323,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52049" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50377" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

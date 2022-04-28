@@ -11,6 +11,11 @@ const second = data.second;
 const node = data.node;
 const compound_child = data.compound_child;
 const compound_parent = data.compound_parent;
+const label_arr = data.labels; 
+/*every 3 elements in the array forms [source,target,label] for an edge
+  i.e. for some k, 
+  data.labels[3*k] = source_name, data.labels[3*k+1] = target_name, data.labels[3*k+2] = label
+*/ 
 
 const arr = compound_parent;
 let idx = {};
@@ -56,8 +61,21 @@ for(let i=0;i<node.length;i++){
 // console.log("nodes = " + Nodes);
 
 let Edges = [];
+let LabelNames = {};
+
+for(let j=0;j<label_arr.length;j+=3){
+    const idx_source = node.indexOf(label_arr[j]);
+    const idx_target = node.indexOf(label_arr[j+1]);
+    LabelNames[idx_source + "-" + idx_target] = label_arr[j+2];
+}
+
 for(let i=0;i<first.length;i++){
-  const obj = {data : {source : idx[second[i]], target : idx[first[i]],label:'edge'}};
+
+  const s = idx[second[i]] + "-" +idx[first[i]];
+  let l = "edge";
+  if(s in LabelNames) l = LabelNames[s];
+
+  const obj = {data : {source : idx[second[i]], target : idx[first[i]], label : l}};
   // console.log(i,obj);
   Edges.push(obj);
 }
@@ -162,7 +180,6 @@ var cy = (window.cy = cytoscape({
         color: "#9e9e9e", //The colour of the element’s label.
         //"text-opacity": "0.87",             //The opacity of the label text, including its outline.
         "font-family": "Nokia Pure Regular", //A comma-separated list of font names to use on the label text.
-        "font-size": "15px", //The size of the label text.
         //font-style : A CSS font style to be applied to the label text.
         //font-weight: "",                    //A CSS font weight to be applied to the label text.
         "text-transform": "uppercase", //A transformation to apply to the label text; may be none, uppercase, or lowercase.
@@ -194,13 +211,25 @@ var cy = (window.cy = cytoscape({
         //text-outline-opacity : The opacity of the outline on label text.
         //text-outline-width : The size of the outline on label text.
 
-        "text-background-color": "#ebebeb", //A colour to apply on the text background.
         "text-background-opacity": "1", //The opacity of the label background; the background is disabled for 0 (default value).
         "text-background-shape": "roundrectangle", //The shape to use for the label background, can be rectangle or round-rectangle.
         "text-background-padding": "3px" //A padding on the background of the label (e.g 5px); zero padding is used by default.
       }
     },
-
+    {
+      selector:"node:label",
+      css:{
+        "text-background-color": "#ebebeb", //A colour to apply on the text background.
+        "font-size": "15px", //The size of the label text.
+      }
+    },
+    {
+      selector:"edge:label",
+      css:{
+        "text-background-color": "#ffe", //A colour to apply on the text background.
+        "font-size" : "10px"
+      }
+    },
     //NODE
     {
       selector: "node",
