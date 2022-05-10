@@ -1,10 +1,10 @@
 import cytoscape from "cytoscape";
-import dagre from "cytoscape-dagre";
-
+// import dagre from "cytoscape-dagre";
+import cola from 'cytoscape-cola';
 var nodeHtmlLabel = require("cytoscape-node-html-label");
 var expandCollapse = require("cytoscape-expand-collapse");
 
-const data = require("../../temp.js");
+const data = require("../../temp5.js");
 
 const first = data.first;
 const second = data.second;
@@ -27,7 +27,7 @@ for(let i=0;i<node.length;i++){
 console.log("cc : " + compound_child);
 console.log("cp : " + compound_parent);
 console.log(compound_parent[0]);
-cytoscape.use(dagre);
+cytoscape.use(cola);
 
 if (typeof cytoscape("core", "expandCollapse") === "undefined") {
   expandCollapse(cytoscape);
@@ -75,7 +75,7 @@ for(let i=0;i<first.length;i++){
   let l = "edge";
   if(s in LabelNames) l = LabelNames[s];
 
-  const obj = {data : {source : idx[second[i]], target : idx[first[i]], label : l}};
+  const obj = {data : {source : idx[first[i]], target : idx[second[i]], label : l}};
   // console.log(i,obj);
   Edges.push(obj);
 }
@@ -109,7 +109,7 @@ var cy = (window.cy = cytoscape({
   ready: function () {
     var api = this.expandCollapse({
       layoutBy: {
-        name: "dagre",
+        name: "cola",
         animate: "end",
         randomize: false,
         fit: false
@@ -393,7 +393,7 @@ var cy = (window.cy = cytoscape({
         selector:'node.highlight',
         style:{
           'border-color': '#FFF','border-width': '2px',
-          "text-max-width": "1000",
+          "text-max-width": "100000",
         }
       },
       {
@@ -418,8 +418,13 @@ var cy = (window.cy = cytoscape({
   ],
 
   layout: {
-    name: "dagre",
-    padding: 30
+    name: "cola",
+    // name: "dagre",
+    // rankDir:  "LR",
+    // animate: false,
+    // fit: true,
+    // padding: 50,
+    // spacingFactor: 1.2,
   },
 
 
@@ -519,6 +524,11 @@ cy.on('click', 'node', function(e){
   }
   tapped[this.id()] = 1 - tapped[this.id()];
 });
+
+this.cytoscape.layout({
+  name: "cola",
+}).run();
+
 
 // cy.on('mouseout', 'node', function(e){
 //   var neigh = e.target;

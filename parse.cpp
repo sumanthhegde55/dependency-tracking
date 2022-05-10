@@ -20,86 +20,8 @@ vector<pair<string,struct node>> mp;
 unordered_map<string,pair<string,string>> fieldMapper;
 unordered_map<string,vector<string>> transforms;
 unordered_map<string,int> counts;
-//dfs implementation
-//mp -> map data struture between token and right part of IR //unordered_map<string,struct node> 
-//d -> map storing set of dependencies for each token //unordered_map<string,set<string>>
-//cur -> token for which dependency is being found
-void dfs(string cur,unordered_map<string,struct node> &mp,unordered_map<string,set<string>> &d){ 
-    vis[cur] = true;
-    for(string x : mp[cur].right){
-        d[cur].insert(x);
-        if(vis.find(x) == vis.end()){
-            dfs(x,mp,d);
-        }
-    }
-    for(string x : mp[cur].func){
-        if(x.substr(0,4) == "attr") d[cur].insert(x);
-    }
-    for(string x : mp[cur].right){
-        for(string y : d[x]){
-            d[cur].insert(y);
-        }
-    }
-}
-// void create_graph(){
-//     // close("output.txt");
-//     // freopen("graph_creater.dot","w",stdout);
 
-//     // freopen("output.txt", "w", stdout);
-
-
-//     ofstream File("temp.dot");
-//     File << "digraph{";
-//     int val = INT_MAX;
-// //    for(int i=(int)mp.size()-1;i>=0;i--){
-//     for(int i=0;i<mp.size();i++){
-//         auto l = mp[i];
-//         string x = l.first;
-//         struct node yy = l.second;
-//         auto y=l.second.right;
-//         // File << yy.annotation << endl;
-//         // set<string> dont_track = {"transformlist","select","concat","record","createrow","implicitcast"};
-//         // File << x  << " : " << fieldMapper[x].first << endl;
-//         if(yy.annotation.substr(0,6) == "symbol"){
-
-//             int j = i + 1;
-//             auto s = mp[j];
-
-//             while(s.second.annotation.size() > 0){
-//                 s = mp[++j];
-//             }
-
-//             // File << s.first << endl;
-
-//             string dest = fieldMapper[s.first].first;
-//             if(dest == "") dest = fieldMapper[s.first].second;
-//             File << fieldMapper[x].first << " -> " <<  dest << endl;
-            
-//             continue;
-//         }
-
-//         if((int)y.size() == 0 || (yy.func.size() > 0 && yy.func[0] != "assign")) continue;
-
-//         for(auto z:y){
-//             auto a = fieldMapper[x].first, b = fieldMapper[z].first;
-//             if(a.size() > 0 && b.size() > 0){
-//                 replace( a.begin(), a.end(), '\"', '\'');
-//                 //replace(a.begin(),a.end(),"*(D'))")
-//                 int pos = a.find("->");
-//                 string f = a.substr(0,pos);
-//                 string s = a.substr(pos+2,val);
-
-//                 File << "\"" + f + "\"->\"" + s +"\""<<endl;
-
-//             }
-//         }
-            
-//     }
-//     File << "}";
-//     File.close();
-
-// }
-ofstream File("temp.js");
+ofstream File("temp5.js");
 
 set<pair<string,string>> e;
 unordered_map<string,string> compound_nodes;
@@ -107,7 +29,7 @@ vector<vector<string>> labels;
 
 void addedge(string node,string present,unordered_map<string,struct node> &mp2,string &compound_parent){
 
-    if(fieldMapper[node].second == "others" || fieldMapper[node].first.size() == 0) return;
+    // if(fieldMapper[node].second == "others" || fieldMapper[node].first.size() == 0) return;
 
 
     if(mp2[node].annotation.substr(0,6) == "symbol"){
@@ -139,6 +61,7 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
     else if(mp2[node].func.size() > 0){
         
         string str = mp2[node].func[0];
+        // if(str == "colon") File << node << " " << fieldMapper[node].second << endl;
         if(compound_parent.length() > 0){
             // File << str << " " << fieldMapper[node].first << " " << compound_parent << endl;
             if(str == "record") compound_nodes[str] = compound_parent; 
@@ -159,7 +82,7 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             str = fieldMapper[node].first;
             // File << str << " -> " << present << endl;    
             e.insert({str,present});
-
+            labels.push_back(vector<string>{present,str,"sorted dataset"});
             addedge(mp2[node].right[0],str,mp2,compound_parent);
             return;
         }
@@ -201,38 +124,55 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             e.insert({str,present});
             for(auto x : mp2[node].right) addedge(x,str,mp2,compound_parent);
         }
-        else if(str == "normalize" || str == "output" || str == "join"){
-            string tmp;
+        else if(str == "normalize" || str == "output" || str == "join" || str == "rollup"){
+            string tmp,s=str;
             if(str == "normalize"){
                 // tmp = compound_parent;
                 str += to_string(++counts["n_count"]);
                 // compound_parent = str;
             }
+            if(str == "rollup") str += to_string(++counts["rollup_count"]);
+
             if(str == "output") str = present;
 
             for(auto x : mp2[node].right){
                 
-                if(fieldMapper[x].second == "others") continue;
-                string to = fieldMapper[x].first;
-                if(to == "count") to += to_string(counts["c_count"] + 1);
-                vector<string> v{str,to};
+                if(s != "output"){
+                    if(fieldMapper[x].second == "others") continue;
+                    string to = fieldMapper[x].first;
+                    if(to == "count") to += to_string(counts["c_count"] + 1);
+                    vector<string> v{str,to};
 
-                if(fieldMapper[x].second == "Constant") v.push_back("ITERATIONS");
-                else v.push_back(fieldMapper[x].second);
-
-                labels.push_back(v);
-
+                    if(fieldMapper[x].second == "Constant") v.push_back("ITERATIONS");
+                    else{
+                       if(fieldMapper[x].second == "logical_operation" || fieldMapper[x].second == "conditional"){
+                           v.push_back(str + " CONDITION");
+                       }
+                       else v.push_back(fieldMapper[x].second);
+                    }
+                    labels.push_back(v);
+                }
                 addedge(x,str,mp2,compound_parent);
             }
             // if(str == "normalize") compound_parent = tmp;
         }
+        else if(fieldMapper[node].second == "others"){
+            // File << node << endl;
+            for(auto x : mp2[node].right){
+                // File << fieldMapper[x].first << " " << fieldMapper[x].second << endl;
+                if(fieldMapper[x].second != "Constant") addedge(x,present,mp2,compound_parent);
+            }
+            return;
+        }
         // else if(str == "equality" || str == "conditional") 
         //     File << fieldMapper[node].first << " -> " << present << endl;
-        if(str == "eq" || str == "if"){
+        if(str == "eq" || str == "if" || fieldMapper[node].second == "logical_operation"){
 
             //    File << "\"" + fieldMapper[node].first + "\"" << " -> " << present << endl;
             ////e.insert({ "\"" + fieldMapper[node].first + "\"",present});
-            labels.push_back(vector<string>{present,fieldMapper[node].first,fieldMapper[node].second});
+            string edge_label = fieldMapper[node].second;
+            if(present.substr(0,5) == "rollup" || present.substr(0,4) == "join") edge_label = present + " condition";
+            // labels.push_back(vector<string>{present,fieldMapper[node].first,edge_label});
             e.insert({fieldMapper[node].first,present});
         }
         else if(str != present && str != "transform"){
@@ -260,7 +200,7 @@ int main(){
     //redirecting ip and op
     ifstream inp;
     freopen("output.txt", "w", stdout);
-    inp.open("input2.txt");
+    inp.open("input5.txt");
     vector<string> txt;
     string s;
 	while(getline(inp,s)){
@@ -337,8 +277,12 @@ int main(){
             }
             else if(c[i] == ':') break;
             else if(c[i] == '['){
+
+                if(t.size() > 0) right.push_back(t);
+                t = "";
+                i++;
                 while(c[i] != ']') t += c[i++];
-                t += ']';
+                // t += ']';
             }
             else t += c[i];
             i++;
@@ -365,6 +309,8 @@ int main(){
     }
     
 
+    unordered_map<string,struct node> mp2(mp.begin(), mp.end());
+
     //lot of code to parse and exctract info out of the nodes created, string and character parsing
     
     for(int i=(int)mp.size()-1;i>=0;i--){
@@ -373,14 +319,16 @@ int main(){
         string le = x.first;
         struct node y = x.second;
 
-        if(y.cnst.substr(0,5) == "field"){
-            fieldMapper[le] = make_pair(y.cnst.substr(6),"field");
-        }
-        else if(y.annotation.substr(0,6) == "symbol"){
+        if(y.annotation.substr(0,6) == "symbol"){
 
-            if(fieldMapper[y.right[0]].second != "transform"){ 
+            if(fieldMapper[y.right[0]].second == "externalcall"){
+                    fieldMapper[le] = fieldMapper[y.right[0]];
+            }
+            else if(fieldMapper[y.right[0]].second != "transform"){ 
                 fieldMapper[le] = make_pair(y.annotation.substr(7),"dataset");
-                fieldMapper[y.right[0]] = fieldMapper[le];
+                if(mp2[y.right[0]].func.size() == 0) 
+                // if(fieldMapper[y.right[0]].second == "other_annotation") 
+                    fieldMapper[y.right[0]] = fieldMapper[le];
             }
             else
                 fieldMapper[le] = make_pair(y.annotation.substr(7),fieldMapper[y.right[0]].second);
@@ -389,16 +337,42 @@ int main(){
             if(fieldMapper[y.right[0]].second == "inlinetable"){
                 string var = fieldMapper[y.right[0]].first;
                 // fieldMapper[var].first = fieldMapper[le].first + fieldMapper[var].first;
-                   fieldMapper[var].first = fieldMapper[le].first;
+                fieldMapper[var].first = fieldMapper[le].first;
             }
 
             
         }
-        else if(y.annotation != "") fieldMapper[le] = fieldMapper[y.right[0]];
+        else if(y.annotation != ""){
+            fieldMapper[le] = fieldMapper[y.right[0]];
+            // fieldMapper[le] = {fieldMapper[y.right[0]].first,"other_annotation"};
+        }
         else if(y.cnst != "") fieldMapper[le] = make_pair(y.cnst,"Constant");
         else if(y.right.size() > 0 && y.right[0].substr(0,7) == "counter") fieldMapper[le] = {"AUTO_INCREMENT","counter"};
         else if(y.func.size() > 0){
-            if(y.func[0] == "record"){
+            //
+            string func = y.func[0];
+            if(func.substr(0,5) == "field"){
+                if(y.right.size() > 0){
+                    fieldMapper[le] = make_pair(fieldMapper[y.right[0]].first,"field");
+                }
+                else fieldMapper[le] = make_pair(func.substr(6),"field");
+            }
+            else if(func.substr(0,7) == "funcdef"){
+                    fieldMapper[le] = {func.substr(8),"funcdef"};
+                    // cout << fieldMapper[le].first << " " << fieldMapper[le].second << endl;
+            }
+            else if(func == "implicitcast") fieldMapper[le] = fieldMapper[y.right[0]];
+            else if(func == "externalcall"){
+                 string op = fieldMapper[y.right.back()].first;
+                 string p = "";
+                for(int i=0;i<y.right.size()-1;i++){
+                    p += fieldMapper[y.right[i]].first + ",";
+                }
+                fieldMapper[le] = {op + "(" + p + ")",func};
+                // cout << fieldMapper[le].first << " " << fieldMapper[le].second << endl;
+            }
+            //
+            else if(func == "record"){
                 string op = "(";
                 for(auto z : y.right){
                     op += fieldMapper[z].first + " , ";
@@ -408,101 +382,119 @@ int main(){
                 op += ")";
                 fieldMapper[le] = make_pair(op,"record");
             }
-            else if(y.func[0] == "self") 
+            else if(func == "self") 
                 fieldMapper[le] = make_pair(fieldMapper[y.right[0]].first,"self(" + fieldMapper[y.right[0]].second + ")");
-            else if(y.func[0] == "select"){
+            else if(func == "select"){
                 string recField = fieldMapper[y.right[0]].first + "." + fieldMapper[y.right[1]].first;
                 fieldMapper[le] = make_pair(recField,"select");
             }
-            else if((y.func[0] == "left" || y.func[0] == "right" || y.func[0] == "implicitcast")){
+            else if((func == "left" || func == "right" || func == "implicitcast")){
                 fieldMapper[le] = fieldMapper[y.right[0]];
             }
-            else if(y.func[0] == "substring"){
+            else if(func == "substring"){
                 fieldMapper[le] = {"substring(" + fieldMapper[y.right[0]].first + ")","substring"};
             }
-            else if(y.func[0] == "count"){
+            else if(func == "count"){
                 fieldMapper[le] = {"count","count"};
             }
-            else if(y.func[0] == "rowdiff"){
+            else if(func == "rowdiff"){
                 string op = "ROWDIFF(";
                 for(auto z : y.right) op += fieldMapper[z].first + ",";
                 op += ")";
                 fieldMapper[le] = {op,"rowdiff"};
             }
-            else if(y.func[0] == "sort"){
+            else if(func == "sort"){
                 string op = "SORT(" + fieldMapper[y.right[0]].first + "),";
                 op += "PARAMETERS : " + fieldMapper[y.right[1]].first;
                 fieldMapper[le] = {op,"sort"};
             }
-            else if(y.func[0] == "sortlist"){
+            else if(func == "sortlist"){
                 string op = "[";
                 for(auto z : y.right) op += fieldMapper[z].first + ", ";
                 op += "]";
                 fieldMapper[le] = {op,"sort_parameters"};
             }
-            else if(y.func[0] == "assign"){
+            else if(func == "assign"){
                 string op = fieldMapper[y.right[0]].first + " -> " + fieldMapper[y.right[1]].first;
                 string desc =  "- assigned ";
                 if(fieldMapper[y.right[1]].second == "Constant" ) desc += "clean";
                 else desc += "dirty";
                 fieldMapper[le] = make_pair(op,desc);
             }
-            else if(y.func[0] == "if"){
+            else if(func == "if"){
                 fieldMapper[le] = {"IF(" + fieldMapper[y.right[0]].first + ")","conditional"};
             }
-            else if(y.func[0] == "inlinetable" || y.func[0] == "newusertable"){
-                fieldMapper[le] = {fieldMapper[y.right[1]].first,y.func[0]};
+
+            // --------------
+
+            else if(func == "and" || func == "or"){
+                fieldMapper[le] = { fieldMapper[y.right[0]].first + " " + func + " " + fieldMapper[y.right[1]].first ,"logical_operation"};
+
+                // cout << fieldMapper[le].first << ", " << fieldMapper[le].second << endl;
             }
-            else if(y.func[0] == "concat"){
+            else if(func == "rollup"){
+                    fieldMapper[le] = {func,func};
+            }
+
+            // -----------
+            else if(func == "inlinetable" || func == "newusertable"){
+                fieldMapper[le] = {fieldMapper[y.right[1]].first,func};
+            }
+            else if(func == "concat"){
                 string op = "(" + fieldMapper[y.right[0]].first + ") * " + "(" + fieldMapper[y.right[1]].first + ")";
                 fieldMapper[le] = make_pair(op,"concatenate");
             }
-            else if((y.func[0] == "transform" || y.func[0] == "hqlproject")){
+            else if((func == "transform" || func == "hqlproject")){
                 // string op = "{\n";
                 for(auto z : y.right){
                 //    if(fieldMapper[z].second != "others") op += "\t" + fieldMapper[z].first + " , \n";
+                     if(fieldMapper[z].second != "others") 
                       transforms[le].push_back(fieldMapper[z].first);
                 }
                 // op += "}";
-                fieldMapper[le] = {y.func[0],y.func[0]};
+                fieldMapper[le] = {func,func};
             }
-            else if(y.func[0] == "createrow"){
+            else if(func == "createrow"){
                 fieldMapper[le] = {"(" + fieldMapper[y.right[0]].first + ")","row"};
             }
-            else if(y.func[0] == "transformlist"){
+            else if(func == "transformlist"){
                 // string op = "[\n";
                 for(auto z : y.right){
                     // op += "\t" + fieldMapper[z].first + " , \n";
                     transforms[le].push_back(fieldMapper[z].first);
                 }
                 // op += "]";
-                fieldMapper[le] = {y.func[0],"transformlist"};
+                fieldMapper[le] = {func,"transformlist"};
             }
-            else if(y.func[0] == "output"){
+            else if(func == "output"){
                 string op;
                 for(auto z : y.right){
                 if(fieldMapper[z].second != "others") op += fieldMapper[z].first + " ";
                 }
                 fieldMapper[le] = {op,"output"};
             }  
-            else if(y.func[0] == "eq"){
-                fieldMapper[le] = {fieldMapper[y.right[0]].first + " == " + fieldMapper[y.right[1]].first,"equality"};
+            else if(func == "eq" || func == "gt" || func == "lt"){
+                string op;
+                if(func == "eq") op = " == ";
+                else if(func == "gt") op = " > ";
+                else if(func == "lt") op = " < ";
+                fieldMapper[le] = {fieldMapper[y.right[0]].first + op + fieldMapper[y.right[1]].first,"equality"};
             }
-            else if(y.func[0] == "filter"){
+            else if(func == "filter"){
                 fieldMapper[le] = {"RECORDSET({x where " + fieldMapper[y.right[1]].first +"})","filter"};
             }
-            else if(y.func[0] == "normalize"){
-                string op = "{\n";
+            else if(func == "normalize"){
+                string op = "NORMALIZED(\n";
                 for(auto z : y.right){
                     if(fieldMapper[z].second == "transform") op += "\tTRANSFORMATION : " + fieldMapper[z].first + "\n";
                     else if(fieldMapper[z].second == "Constant") op += "\tNO_ITERATIONS : " + fieldMapper[z].first + "\n";
                     else if(fieldMapper[z].second == "dataset") op += "\tDATASET : " + fieldMapper[z].first + "\n";
                 }
-                op += "}";
+                op += ")";
                 fieldMapper[le] = {op,"normalize"};
             }
 
-            else if(y.func[0] == "join"){
+            else if(func == "join"){
                 string op = "{\n\tDATASET1 : " + fieldMapper[y.right[0]].first + "\n";
                 op += "\tDATASET2 : " + fieldMapper[y.right[1]].first + "\n";
                 op += "\tCONDITION : " + fieldMapper[y.right[2]].first + "\n";
@@ -511,8 +503,10 @@ int main(){
                 fieldMapper[le] = {op,"join"};
             }
             else{
-                fieldMapper[le] = {y.func[0],"others"};
+                fieldMapper[le] = {func,"others"};
             }
+
+            
             if(fieldMapper[le].first == "transform"){
                 fieldMapper[le].first += to_string(++counts["transform"]);
                 // fieldMapper[le].second = fieldMapper[le].first;
@@ -543,7 +537,7 @@ int main(){
             cout << fieldMapper[le].first << " -----> " << fieldMapper[le].second;
         cout<<endl;
     }
-    unordered_map<string,struct node> mp2(mp.begin(), mp.end());
+    // unordered_map<string,struct node> mp2(mp.begin(), mp.end());
     unordered_map<string,set<string>> d;
     // for(auto x:fieldMapper){
     //     cout<<x.first<<' '<<x.second.first<<' '<<x.second.second<<'\n';
@@ -609,23 +603,4 @@ int main(){
     }
     File << "];";
     File.close();
-
-
-    for(string op : outputs){
-        dfs(op,mp2,d);
-    }
- 
-    // for(string op : outputs){
-    //     cout << " DEPENDENCY OF " << op << " : ";
-    //     for(string x : d[op]) cout << x << " ";
-    //     cout<<endl;
-    // }
-    // if dependency of some specific token is required
-    /*
-    string op2 = "%e155";
-    cout << " DEPENDENCY OF " << op2 << " : ";
-    for(string x : d[op2]) cout << x << " ";
-    cout << endl;
-    */
-    cout<<endl;
 }
