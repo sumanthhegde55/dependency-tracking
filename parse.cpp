@@ -21,6 +21,9 @@ unordered_map<string,pair<string,string>> fieldMapper;
 unordered_map<string,vector<string>> transforms;
 unordered_map<string,int> counts;
 unordered_map<string,string> records;
+unordered_map<string,string> self_records;
+unordered_map<string,string> transform_recStruct;
+
 ofstream File("temp5.js");
 
 set<pair<string,string>> e;
@@ -90,12 +93,30 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             ////str = "\"" + fieldMapper[node].first + "\"";
             //  str = fieldMapper[node].first;
             // File << present << endl;
+            for(auto x : mp2[node].right){
+                if(mp2[x].func[0] == "assignall"){
+                    for(auto y : mp2[x].right)
+                        addedge(y,present,mp2,compound_parent);
+                }
+            }
             for(auto x : transforms[node]){
-                
                 // File << x << " " << present << endl;
                 labels.push_back(vector<string>{present,x,"assign"});
                 e.insert({x,present});
                 compound_nodes[x] = compound_parent;
+            }
+
+            for(auto x : mp2[node].right){
+                if(fieldMapper[x].first.substr(0,4) == "SELF"){
+                    auto y = node;
+                    while(fieldMapper[y].second.substr(0,4) != "self"){
+                        y = mp2[y].right[0];
+                    }
+                    y = mp2[y].right[0];
+                    string transform_name = fieldMapper[node].first;
+                    transform_recStruct[transform_name] = fieldMapper[y].first;
+                    break;
+                }
             }
             //// replace( str.begin(), str.end(), '\"', '\'');
             //// str = "\"" + str.substr(1);
@@ -382,12 +403,15 @@ int main(){
                     op += fieldMapper[z].first + ",";
                 }
                 int oplen = op.length(); 
-                op = op.substr(0,oplen-3); // remove the last comma
+                op = op.substr(0,oplen-1); // remove the last comma
                 op += ")";
                 fieldMapper[le] = make_pair(op,"record");
             }
-            else if(func == "self") 
-                fieldMapper[le] = make_pair(fieldMapper[y.right[0]].first,"self(" + fieldMapper[y.right[0]].second + ")");
+            else if(func == "self"){
+                // fieldMapper[le] = make_pair(fieldMapper[y.right[0]].first,"self(" + fieldMapper[y.right[0]].second + ")");
+                fieldMapper[le] = make_pair("SELF","self(" + fieldMapper[y.right[0]].second + ")");
+                self_records[le] = fieldMapper[y.right[0]].first;
+            }
             else if(func == "select"){
                 string recField = fieldMapper[y.right[0]].first + "." + fieldMapper[y.right[1]].first;
                 fieldMapper[le] = make_pair(recField,"select");
@@ -612,5 +636,8 @@ int main(){
         File << s <<", " << s2 << ", ";
     }
     File << "];\n";
+    // for(auto x : transform_recStruct){
+    //     File << x.first << " " << x.second << endl;
+    // }
     File.close();
 }
