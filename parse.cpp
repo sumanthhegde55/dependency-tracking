@@ -23,7 +23,7 @@ unordered_map<string,int> counts;
 unordered_map<string,string> records;
 unordered_map<string,string> self_records;
 unordered_map<string,string> transform_recStruct;
-
+unordered_map<string,string> temp;
 ofstream File("temp5.js");
 
 set<pair<string,string>> e;
@@ -405,7 +405,9 @@ int main(){
                 int oplen = op.length(); 
                 op = op.substr(0,oplen-1); // remove the last comma
                 op += ")";
-                fieldMapper[le] = make_pair(op,"record");
+                string r = "RECORD_" + to_string(counts["record"]++);
+                fieldMapper[le] = make_pair(r,"record");
+                temp[r] = op;
             }
             else if(func == "self"){
                 // fieldMapper[le] = make_pair(fieldMapper[y.right[0]].first,"self(" + fieldMapper[y.right[0]].second + ")");
@@ -598,6 +600,12 @@ int main(){
         nodes.insert(x.second);
         File << x.second << ", ";
     }
+    for(auto x : temp){
+        string s = x.first;
+        s = '`' + x.first + '`';
+        x.second = '`' + x.second + '`';
+        nodes.insert(s);
+    }
     File << "];\n";
     File << "exports.node = [";
     for(auto x : nodes) File << x << ",";
@@ -635,9 +643,11 @@ int main(){
         string s2 = "`" + x.second + "`";
         File << s <<", " << s2 << ", ";
     }
+    for(auto x : temp){
+        string s = '`' + x.first + '`';
+        x.second = "`" + x.second + "`";
+        File << s << ", " << x.second << ", ";
+    }
     File << "];\n";
-    // for(auto x : transform_recStruct){
-    //     File << x.first << " " << x.second << endl;
-    // }
     File.close();
 }

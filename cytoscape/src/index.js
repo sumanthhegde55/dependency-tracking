@@ -538,7 +538,8 @@ cy.on('click', 'node', function(e){
   
     // for records only
     console.log(cy.$('#' + this.id()).data('label'));
-    if(cy.$('#' + this.id()).data('label').substring(0,6) == "record"){
+    const s = toUpper(cy.$('#' + this.id()).data('label').substring(0,6));
+    if(s === "RECORD"){
       console.log('in');
       const name = cy.$('#' + this.id()).data('label');
       const content_idx = records.indexOf(name);
