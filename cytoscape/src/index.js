@@ -1,6 +1,5 @@
 import cytoscape from "cytoscape";
-// import dagre from "cytoscape-dagre";
-import cola from 'cytoscape-cola';
+import dagre from "cytoscape-dagre";
 var nodeHtmlLabel = require("cytoscape-node-html-label");
 var expandCollapse = require("cytoscape-expand-collapse");
 
@@ -11,7 +10,9 @@ const second = data.second;
 const node = data.node;
 const compound_child = data.compound_child;
 const compound_parent = data.compound_parent;
+const records = data.records;
 const label_arr = data.labels; 
+
 /*every 3 elements in the array forms [source,target,label] for an edge
   i.e. for some k, 
   data.labels[3*k] = source_name, data.labels[3*k+1] = target_name, data.labels[3*k+2] = label
@@ -27,7 +28,7 @@ for(let i=0;i<node.length;i++){
 console.log("cc : " + compound_child);
 console.log("cp : " + compound_parent);
 console.log(compound_parent[0]);
-cytoscape.use(cola);
+cytoscape.use(dagre);
 
 if (typeof cytoscape("core", "expandCollapse") === "undefined") {
   expandCollapse(cytoscape);
@@ -109,7 +110,7 @@ var cy = (window.cy = cytoscape({
   ready: function () {
     var api = this.expandCollapse({
       layoutBy: {
-        name: "cola",
+        name: "dagre",
         animate: "end",
         randomize: false,
         fit: false
@@ -418,7 +419,7 @@ var cy = (window.cy = cytoscape({
   ],
 
   layout: {
-    name: "cola",
+    name: "dagre",
     // name: "dagre",
     // rankDir:  "LR",
     // animate: false,
@@ -506,28 +507,52 @@ cy.on('cxttapstart','node',function(){
   else node.successors().targets().removeClass("hidden"); 
 });
 // ---------------
+const download_func = (filename, contents, mimeType = 'text/plain') => {
+  const blob = new Blob([contents], {type: mimeType});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+};
 
 let tapped={};
 cy.on('click', 'node', function(e){
+
   if(!(this.id() in tapped)){
     tapped[this.id()] = 1;
   }
   if(tapped[this.id()]){
+
     var neigh = e.target;
     cy.elements().difference(neigh.outgoers().union(neigh.incomers())).not(neigh).addClass('semitransp');
     neigh.addClass('highlight').outgoers().addClass('highlight');
+
   }
   else{
     var neigh = e.target;
     cy.elements().removeClass('semitransp');
     neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
+  
+    // for records only
+    console.log(cy.$('#' + this.id()).data('label'));
+    if(cy.$('#' + this.id()).data('label').substring(0,6) == "record"){
+      console.log('in');
+      const name = cy.$('#' + this.id()).data('label');
+      const content_idx = records.indexOf(name);
+      const content = records[content_idx + 1];
+      download_func(name,content);
+      console.log('out');
+    }
   }
   tapped[this.id()] = 1 - tapped[this.id()];
 });
 
-this.cytoscape.layout({
-  name: "cola",
-}).run();
+// this.cytoscape.layout({
+//   name: "dagre",
+// }).run();
 
 
 // cy.on('mouseout', 'node', function(e){

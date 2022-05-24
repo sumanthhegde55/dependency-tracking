@@ -20,7 +20,7 @@ vector<pair<string,struct node>> mp;
 unordered_map<string,pair<string,string>> fieldMapper;
 unordered_map<string,vector<string>> transforms;
 unordered_map<string,int> counts;
-
+unordered_map<string,string> records;
 ofstream File("temp5.js");
 
 set<pair<string,string>> e;
@@ -179,6 +179,10 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
             // File << str << " -> " << present << endl; 
                if(present.substr(0,4) != "norm") labels.push_back(vector<string>{present,str,fieldMapper[node].second});
                else labels.push_back(vector<string>{present,str,"ITERATIONS"});
+               if(str == "record"){
+                   str += "_" + present;
+                   records[str] = fieldMapper[node].first;
+               }
                e.insert({str,present});
         }
     }
@@ -375,7 +379,7 @@ int main(){
             else if(func == "record"){
                 string op = "(";
                 for(auto z : y.right){
-                    op += fieldMapper[z].first + " , ";
+                    op += fieldMapper[z].first + ",";
                 }
                 int oplen = op.length(); 
                 op = op.substr(0,oplen-3); // remove the last comma
@@ -506,7 +510,6 @@ int main(){
                 fieldMapper[le] = {func,"others"};
             }
 
-            
             if(fieldMapper[le].first == "transform"){
                 fieldMapper[le].first += to_string(++counts["transform"]);
                 // fieldMapper[le].second = fieldMapper[le].first;
@@ -601,6 +604,13 @@ int main(){
         if(x[2] != "`") s = "`" + x[2] + "`";
         File << s << ",";
     }
-    File << "];";
+    File << "];\n";
+    File << "exports.records = [";
+    for(auto x : records){
+        string s = "`" + x.first + "`";
+        string s2 = "`" + x.second + "`";
+        File << s <<", " << s2 << ", ";
+    }
+    File << "];\n";
     File.close();
 }
