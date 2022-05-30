@@ -60,29 +60,24 @@ for(let i=0;i<node.length;i++){
 
         // ------- 30.05.2022 ---------
 
-        let node_index = -4; 
-        console.log(node[i]);
+        let node_index; 
+        // console.log(node[i]);
         if(fieldsToNodes_nodeName.includes(node[i])){
             node_index = fieldsToNodes_nodeName.indexOf(node[i]);
-            console.log('index = ',node_index);
-            console.log("fname = ",fieldsToNodes_fields[node_index])
+            // console.log('index = ',node_index);
+            // console.log("fname = ",fieldsToNodes_fields[node_index])
 
             const fieldNames = fieldsToNodes_fields[node_index];
 
-            console.log(fieldNames.length)
-            if(fieldNames !== undefined){
-              for(let l=0;l<fieldNames.length;l++){
-                 if(fieldNames[l] !== ","){
-                    obj = { ...obj,
-                      fieldNames[l] : true
-                    }
-                }
-              }
+            for(let l=0;l<fieldNames.length;l++){
+              const field = fieldNames[l];
+              obj = { ...obj,[field] : true}
             }
+
         }
         // --------------------------
         console.log(obj);
-        console.log("--------")
+
         Nodes[i] = ({data:obj});
 }
 // console.log("nodes = " + Nodes);
@@ -515,6 +510,8 @@ var cy = (window.cy = cytoscape({
   
 }));
 
+
+// cy.nodes().data('layout.field#middlename').addClass('hidden')
 
 //---------- for collapse expand 
 const removed = {};
