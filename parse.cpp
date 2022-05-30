@@ -21,9 +21,14 @@ unordered_map<string,pair<string,string>> fieldMapper;
 unordered_map<string,vector<string>> transforms;
 unordered_map<string,int> counts;
 unordered_map<string,string> records;
+unordered_map<string,string> recName_to_structure;
 unordered_map<string,string> self_records;
 unordered_map<string,string> transform_recStruct;
+
+unordered_map<string,vector<string>> ir_fields; // map containing fields related to each line of ir
+
 unordered_map<string,string> temp;
+
 ofstream File("temp5.js");
 
 set<pair<string,string>> e;
@@ -114,7 +119,8 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
                     }
                     y = mp2[y].right[0];
                     string transform_name = fieldMapper[node].first;
-                    transform_recStruct[transform_name] = fieldMapper[y].first;
+                    string recStruct_name = fieldMapper[y].first;
+                    transform_recStruct[transform_name] = recName_to_structure[recStruct_name];
                     break;
                 }
             }
@@ -354,6 +360,23 @@ int main(){
                 if(mp2[y.right[0]].func.size() == 0) 
                 // if(fieldMapper[y.right[0]].second == "other_annotation") 
                     fieldMapper[y.right[0]] = fieldMapper[le];
+                    
+            // 30.05.2022 ----------------------
+
+                else if(mp2[y.right[0]].func[0] == "record"){
+                    string old_name = fieldMapper[y.right[0]].first;
+                    string new_name = y.annotation.substr(7);
+
+                    fieldMapper[y.right[0]].first = new_name;
+
+                    string recStruct = recName_to_structure[old_name];
+                    temp[recStruct] = new_name;
+
+                    recName_to_structure[new_name] = recStruct;
+                }
+
+                // --------------------
+
             }
             else
                 fieldMapper[le] = make_pair(y.annotation.substr(7),fieldMapper[y.right[0]].second);
@@ -407,7 +430,8 @@ int main(){
                 op += ")";
                 string r = "RECORD_" + to_string(counts["record"]++);
                 fieldMapper[le] = make_pair(r,"record");
-                temp[r] = op;
+                recName_to_structure[r] = op;
+                temp[op] = r;
             }
             else if(func == "self"){
                 // fieldMapper[le] = make_pair(fieldMapper[y.right[0]].first,"self(" + fieldMapper[y.right[0]].second + ")");
@@ -566,6 +590,59 @@ int main(){
             cout << fieldMapper[le].first << " -----> " << fieldMapper[le].second;
         cout<<endl;
     }
+
+
+ /* -------------------------
+     30.05.2022 code for determining fields related to nodes of our graph
+     */
+
+        /*
+         for key in map, we are using fieldMapper[x].first because this will be the label of nodes in the graph,
+         and this map is required to pass information about fields which are related to a given node in a graph.
+         Doing so gives direct access.
+
+         The fields-which-are-related-to-a-node information is required as we need to track the data flow for a particular field.
+         The graphing library has the option to filter based on attributes defined for each node. We are adding these related fields as attributes.
+        */
+       
+        unordered_map<string,vector<string>> node_fields;
+        for(int i=(int)mp.size()-1;i>=0;i--){
+             auto x = mp[i];
+             string le = x.first;
+             struct node y = x.second;
+
+            //  if(y.cnst.substr(0,5) == "field"){
+            //     ir_fields[le].push_back(fieldMapper[le].first);
+            //     File << le << endl;
+            //     for(auto x : ir_fields[le]){
+            //         File << x << endl;
+            //     }
+            //     File << "-----------------\n";
+            //  }
+             if(y.func.size() > 0){
+                if(y.func[0] == "select"){
+                string s = '"' + fieldMapper[y.right[0]].first + '.' + fieldMapper[y.right[1]].first + '"'; 
+                ir_fields[le].push_back(s);
+            //  File << le << " " << ir_fields[le][0] << endl; 
+                }
+                else{
+                    for(auto z : y.right){
+                         for(auto y : ir_fields[z])
+                            ir_fields[le].push_back(y);
+                    }
+                }
+                string s = "`" + fieldMapper[x.first].first + "`";
+                node_fields[s] = ir_fields[le];
+                // File << le << endl;
+                // for(auto x : ir_fields[le]){
+                //     File << x << endl;
+                // }
+                // File << "-----------------\n";
+             }
+        }
+      /* ----------------------------*/
+
+
     // unordered_map<string,struct node> mp2(mp.begin(), mp.end());
     unordered_map<string,set<string>> d;
     // for(auto x:fieldMapper){
@@ -600,16 +677,47 @@ int main(){
         nodes.insert(x.second);
         File << x.second << ", ";
     }
-    for(auto x : temp){
-        string s = x.first;
-        s = '`' + x.first + '`';
-        x.second = '`' + x.second + '`';
-        nodes.insert(s);
-    }
+    // for(auto x : temp){
+    //     if(records.find(x.first) == records.end()){
+    //         string s = x.first;
+    //         s = '`' + x.first + '`';
+    //         x.second = '`' + x.second + '`';
+    //         nodes.insert(s);
+    //     }
+    // }
     File << "];\n";
     File << "exports.node = [";
     for(auto x : nodes) File << x << ",";
-    File << "];\n;";
+    File << "];\n";
+
+    File << "exports.fieldsToNodes_fields = {";
+
+    vector<string> vec;
+    int i=0;
+    for(auto x : nodes){
+        // File << x << " : [";
+        if(node_fields[x].size() == 0) continue;
+
+        vec.push_back(x);
+
+        string str = to_string(i++);
+        File << str << " : [";
+        for(auto y : node_fields[x])
+            File << y << ",";
+        File << "],\n"; 
+        
+    }
+
+    File << "};\n";
+
+    // the index is mentioned above the corresponding name is here in array
+    // `` gives error when used as key. hence workaround used is an index in above object
+    // the index in below array gives the actual node name
+
+    File << "exports.fieldsToNodes_nodeName = ["; 
+
+    for(i=0;i<(int)vec.size();i++) File << vec[i] << ", ";
+    File << "];\n";
 
     File << "exports.compound_child=[";
     for(auto x : compound_nodes){
@@ -643,11 +751,13 @@ int main(){
         string s2 = "`" + x.second + "`";
         File << s <<", " << s2 << ", ";
     }
-    for(auto x : temp){
-        string s = '`' + x.first + '`';
-        x.second = "`" + x.second + "`";
-        File << s << ", " << x.second << ", ";
-    }
+    // for(auto x : temp){
+    //     if(records.find(x.first) == records.end()){
+    //         string s = '`' + x.first + '`';
+    //         x.second = "`" + x.second + "`";
+    //         File << s << ", " << x.second << ", ";
+    //     }
+    // }
     File << "];\n";
     File.close();
 }

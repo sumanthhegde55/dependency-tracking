@@ -12,8 +12,7 @@ const compound_child = data.compound_child;
 const compound_parent = data.compound_parent;
 const records = data.records;
 const label_arr = data.labels; 
-const fieldsToNodes_fields = data.fieldsToNodes_fields;
-const fieldsToNodes_nodeName = data.fieldsToNodes_nodeName;
+
 /*every 3 elements in the array forms [source,target,label] for an edge
   i.e. for some k, 
   data.labels[3*k] = source_name, data.labels[3*k+1] = target_name, data.labels[3*k+2] = label
@@ -26,9 +25,9 @@ for(let i=0;i<node.length;i++){
 }
 
 // console.log(first);
-// console.log("cc : " + compound_child);
-// console.log("cp : " + compound_parent);
-// console.log(compound_parent[0]);
+console.log("cc : " + compound_child);
+console.log("cp : " + compound_parent);
+console.log(compound_parent[0]);
 cytoscape.use(dagre);
 
 if (typeof cytoscape("core", "expandCollapse") === "undefined") {
@@ -48,42 +47,17 @@ for(let i=0;i<node.length;i++){
             const par_id = node.indexOf(compound_parent[index]);
             console.log(compound_child[index],compound_parent[index])
 
-            obj = {id : i, label : node[i], parent : par_id};
+            obj = {data : {id : i, label : node[i], parent : par_id}};
 
             if(node[par_id] == "transform"){
                 if(!(par_id in expand_data)) expand_data[par_id] = (String)(node[i]);
                 else expand_data[par_id] += (String)(node[i]);
             }  
         }
-        else obj = {id : i, label : node[i]};
-
-
-        // ------- 30.05.2022 ---------
-
-        let node_index = -4; 
-        console.log(node[i]);
-        if(fieldsToNodes_nodeName.includes(node[i])){
-            node_index = fieldsToNodes_nodeName.indexOf(node[i]);
-            console.log('index = ',node_index);
-            console.log("fname = ",fieldsToNodes_fields[node_index])
-
-            const fieldNames = fieldsToNodes_fields[node_index];
-
-            console.log(fieldNames.length)
-            if(fieldNames !== undefined){
-              for(let l=0;l<fieldNames.length;l++){
-                 if(fieldNames[l] !== ","){
-                    obj = { ...obj,
-                      fieldNames[l] : true
-                    }
-                }
-              }
-            }
-        }
-        // --------------------------
+        else obj = {data : {id : i, label : node[i]}};
         console.log(obj);
-        console.log("--------")
-        Nodes[i] = ({data:obj});
+
+        Nodes[i] = (obj);
 }
 // console.log("nodes = " + Nodes);
 
