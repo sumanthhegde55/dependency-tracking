@@ -23,7 +23,8 @@ unordered_map<string,int> counts;
 unordered_map<string,string> records;
 unordered_map<string,string> recName_to_structure;
 unordered_map<string,string> self_records;
-unordered_map<string,string> transform_recStruct;
+unordered_map<string,string> transform_recStruct; // contains record structure for a given annotation
+unordered_map<string,string> transform_name_annotation;
 
 unordered_map<string,vector<string>> ir_fields; // map containing fields related to each line of ir
 
@@ -120,7 +121,8 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
                     y = mp2[y].right[0];
                     string transform_name = fieldMapper[node].first;
                     string recStruct_name = fieldMapper[y].first;
-                    transform_recStruct[transform_name] = recName_to_structure[recStruct_name];
+                    // transform_recStruct[transform_name] = recName_to_structure[recStruct_name];
+                    transform_recStruct[recName_to_structure[recStruct_name]] = transform_name_annotation[transform_name];
                     break;
                 }
             }
@@ -208,7 +210,7 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
                else labels.push_back(vector<string>{present,str,"ITERATIONS"});
                if(str == "record"){
                    str += "_" + present;
-                   records[str] = fieldMapper[node].first;
+                   records[str] = recName_to_structure[fieldMapper[node].first];
                }
                e.insert({str,present});
         }
@@ -378,9 +380,10 @@ int main(){
                 // --------------------
 
             }
-            else
+            else{
+                transform_name_annotation[fieldMapper[y.right[0]].first] = y.annotation.substr(7);
                 fieldMapper[le] = make_pair(y.annotation.substr(7),fieldMapper[y.right[0]].second);
-            
+            }
             
             if(fieldMapper[y.right[0]].second == "inlinetable"){
                 string var = fieldMapper[y.right[0]].first;
@@ -759,5 +762,16 @@ int main(){
     //     }
     // }
     File << "];\n";
+
+    File << "exports.transformStruct = [";
+    set<string> se;
+    for(auto x : transform_recStruct){
+        if(se.find(x.second) != se.end()) continue;
+        se.insert(x.second);
+        string s = '`' + x.first + '`';
+        string s2 = '`' + x.second + '`';
+        File << s2 << " , " << s << " , ";
+    }
+    File << "]\n";
     File.close();
 }
