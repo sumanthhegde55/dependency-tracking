@@ -50397,15 +50397,23 @@ module.exports = function (cy, api) {
 
 
 
-},{}],"../temp5.js":[function(require,module,exports) {
-exports.first = ["", "", "", "", "AUTO_INCREMENT", "AUTO_INCREMENT", "D\"~CLASS::SuryaY::OUT::LookupCSZ\"", "File exported", "IDRecs", "IDRecs", "Layout exported", "Layout exported", "Layout exported", "Persons", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "RECORD_6.field#zipcode == RECORD_6.field#zipcode and RECORD_6.field#state == RECORD_6.field#state and RECORD_6.field#city == RECORD_6.field#city", "RollCSV", "Rollup_CSZ", "SELF.field#RecID -> AUTO_INCREMENT", "SELF.field#birthdate -> RECORD_0.field#birthdate", "SELF.field#bureaucode -> RECORD_0.field#bureaucode", "SELF.field#city -> RECORD_0.field#city", "SELF.field#city -> RECORD_6.field#city", "SELF.field#csz_id -> IF(RECORD_6.field#csz_id < RECORD_6.field#csz_id)", "SELF.field#dependentcount -> RECORD_0.field#dependentcount", "SELF.field#filedate -> RECORD_0.field#filedate", "SELF.field#firstname -> RECORD_0.field#firstname", "SELF.field#gender -> RECORD_0.field#gender", "SELF.field#id -> RECORD_0.field#id", "SELF.field#lastname -> RECORD_0.field#lastname", "SELF.field#maritalstatus -> RECORD_0.field#maritalstatus", "SELF.field#middlename -> RECORD_0.field#middlename", "SELF.field#namesuffix -> RECORD_0.field#namesuffix", "SELF.field#recid -> AUTO_INCREMENT", "SELF.field#state -> RECORD_0.field#state", "SELF.field#state -> RECORD_6.field#state", "SELF.field#streetaddress -> RECORD_0.field#streetaddress", "SELF.field#zipcode -> RECORD_0.field#zipcode", "SELF.field#zipcode -> RECORD_6.field#zipcode", "SORT(T_recs),PARAMETERS : [layout_t_recs.field#zipcode, layout_t_recs.field#state, layout_t_recs.field#city, ]", "S_recs", "T_recs", "UID_Persons exported", "assign", "file exported", "file exported", "layout", "record_Layout exported", "record_layout", "rollup1"];
-exports.second = ["Project(DATASET : Persons , TRANSFORM : IDRecs)", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "file exported", "output1", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "output1", "T_recs", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "File exported", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "file exported", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "UID_Persons exported", "UID_Persons exported", "rollup1", "rollup1", "output1", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "RollCSV", "RollCSV", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "RollCSV", "IDRecs", "IDRecs", "RollCSV", "S_recs", "rollup1", "SORT(T_recs),PARAMETERS : [layout_t_recs.field#zipcode, layout_t_recs.field#state, layout_t_recs.field#city, ]", "File exported", "IDRecs", "Persons", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "file exported", "Layout exported", "layout", "Rollup_CSZ"];
-exports.node = ["AUTO_INCREMENT", "D\"~CLASS::SuryaY::OUT::LookupCSZ\"", "File exported", "IDRecs", "Layout exported", "Persons", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "RECORD_0", "RECORD_1", "RECORD_2", "RECORD_3", "RECORD_4", "RECORD_5", "RECORD_6.field#zipcode == RECORD_6.field#zipcode and RECORD_6.field#state == RECORD_6.field#state and RECORD_6.field#city == RECORD_6.field#city", "RECORD_6", "RollCSV", "Rollup_CSZ", "SELF.field#RecID -> AUTO_INCREMENT", "SELF.field#birthdate -> RECORD_0.field#birthdate", "SELF.field#bureaucode -> RECORD_0.field#bureaucode", "SELF.field#city -> RECORD_0.field#city", "SELF.field#city -> RECORD_6.field#city", "SELF.field#csz_id -> IF(RECORD_6.field#csz_id < RECORD_6.field#csz_id)", "SELF.field#dependentcount -> RECORD_0.field#dependentcount", "SELF.field#filedate -> RECORD_0.field#filedate", "SELF.field#firstname -> RECORD_0.field#firstname", "SELF.field#gender -> RECORD_0.field#gender", "SELF.field#id -> RECORD_0.field#id", "SELF.field#lastname -> RECORD_0.field#lastname", "SELF.field#maritalstatus -> RECORD_0.field#maritalstatus", "SELF.field#middlename -> RECORD_0.field#middlename", "SELF.field#namesuffix -> RECORD_0.field#namesuffix", "SELF.field#recid -> AUTO_INCREMENT", "SELF.field#state -> RECORD_0.field#state", "SELF.field#state -> RECORD_6.field#state", "SELF.field#streetaddress -> RECORD_0.field#streetaddress", "SELF.field#zipcode -> RECORD_0.field#zipcode", "SELF.field#zipcode -> RECORD_6.field#zipcode", "SORT(T_recs),PARAMETERS : [layout_t_recs.field#zipcode, layout_t_recs.field#state, layout_t_recs.field#city, ]", "S_recs", "T_recs", "UID_Persons exported", "", "assign", "file exported", "layout", "output1", "record_Layout exported", "record_layout", "rollup1"];
-;
-exports.compound_child = ["SELF.field#zipcode -> RECORD_6.field#zipcode", "SELF.field#city -> RECORD_6.field#city", "SELF.field#csz_id -> IF(RECORD_6.field#csz_id < RECORD_6.field#csz_id)", "transform3", "SELF.field#BirthDate -> RECORD_2.field#BirthDate", "SELF.field#Gender -> RECORD_2.field#Gender", "SELF.field#StreetAddress -> RECORD_2.field#StreetAddress", "SELF.field#DependentCount -> RECORD_2.field#DependentCount", "SELF.field#FileDate -> RECORD_2.field#FileDate", "SELF.field#bureaucode -> RECORD_0.field#bureaucode", "transform1", "SELF.field#gender -> RECORD_0.field#gender", "SELF.field#ZipCode -> RECORD_2.field#ZipCode", "SELF.field#LastName -> RECORD_2.field#LastName", "SELF.field#RecID -> AUTO_INCREMENT", "SELF.field#middlename -> RECORD_0.field#middlename", "SELF.field#state -> RECORD_6.field#state", "SELF.field#maritalstatus -> RECORD_0.field#maritalstatus", "SELF.field#namesuffix -> RECORD_0.field#namesuffix", "SELF.field#lastname -> RECORD_0.field#lastname", "SELF.field#BureauCode -> RECORD_2.field#BureauCode", "SELF.field#filedate -> RECORD_0.field#filedate", "SELF.field#recid -> AUTO_INCREMENT", "SELF.field#NameSuffix -> RECORD_2.field#NameSuffix", "SELF.field#zipcode -> RECORD_0.field#zipcode", "SELF.field#MiddleName -> RECORD_2.field#MiddleName", "SELF.field#firstname -> RECORD_0.field#firstname", "SELF.field#dependentcount -> RECORD_0.field#dependentcount", "SELF.field#streetaddress -> RECORD_0.field#streetaddress", "SELF.field#State -> RECORD_2.field#State", "SELF.field#birthdate -> RECORD_0.field#birthdate", "SELF.field#city -> RECORD_0.field#city", "SELF.field#id -> RECORD_0.field#id", "SELF.field#state -> RECORD_0.field#state", "SELF.field#City -> RECORD_2.field#City", "SELF.field#ID -> RECORD_2.field#ID", "transform2", "SELF.field#MaritalStatus -> RECORD_2.field#MaritalStatus", "SELF.field#FirstName -> RECORD_2.field#FirstName"];
-exports.compound_parent = ["RollCSV", "RollCSV", "RollCSV", "RollCSV", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "RollCSV", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs", "IDRecs"];
-exports.labels = ["output1", "Rollup_CSZ", "dataset", "rollup1", "S_recs", "dataset", "rollup1", "S_recs", "dataset", "S_recs", "SORT(T_recs),PARAMETERS : [layout_t_recs.field#zipcode, layout_t_recs.field#state, layout_t_recs.field#city, ]", "sorted dataset", "SORT(T_recs),PARAMETERS : [layout_t_recs.field#zipcode, layout_t_recs.field#state, layout_t_recs.field#city, ]", "T_recs", "dataset", "T_recs", "File exported", "dataset", "File exported", "UID_Persons exported", "dataset", "UID_Persons exported", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "hqlproject", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "file exported", "dataset", "file exported", "layout", "dataset", "layout", "record", "record", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "IDRecs", "transform", "IDRecs", "SELF.field#recid -> AUTO_INCREMENT", "assign", "IDRecs", "SELF.field#id -> RECORD_0.field#id", "assign", "IDRecs", "SELF.field#firstname -> RECORD_0.field#firstname", "assign", "IDRecs", "SELF.field#lastname -> RECORD_0.field#lastname", "assign", "IDRecs", "SELF.field#middlename -> RECORD_0.field#middlename", "assign", "IDRecs", "SELF.field#namesuffix -> RECORD_0.field#namesuffix", "assign", "IDRecs", "SELF.field#filedate -> RECORD_0.field#filedate", "assign", "IDRecs", "SELF.field#bureaucode -> RECORD_0.field#bureaucode", "assign", "IDRecs", "SELF.field#maritalstatus -> RECORD_0.field#maritalstatus", "assign", "IDRecs", "SELF.field#gender -> RECORD_0.field#gender", "assign", "IDRecs", "SELF.field#dependentcount -> RECORD_0.field#dependentcount", "assign", "IDRecs", "SELF.field#birthdate -> RECORD_0.field#birthdate", "assign", "IDRecs", "SELF.field#streetaddress -> RECORD_0.field#streetaddress", "assign", "IDRecs", "SELF.field#city -> RECORD_0.field#city", "assign", "IDRecs", "SELF.field#state -> RECORD_0.field#state", "assign", "IDRecs", "SELF.field#zipcode -> RECORD_0.field#zipcode", "assign", "UID_Persons exported", "Project(DATASET : file exported , TRANSFORM : IDRecs)", "hqlproject", "UID_Persons exported", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "hqlproject", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Persons", "dataset", "Persons", "file exported", "dataset", "file exported", "Layout exported", "dataset", "Layout exported", "record", "record", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "IDRecs", "transform", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "SELF.field#RecID -> AUTO_INCREMENT", "assign", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Layout exported", "dataset", "Layout exported", "record", "record", "UID_Persons exported", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "hqlproject", "File exported", "UID_Persons exported", "dataset", "UID_Persons exported", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "hqlproject", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Persons", "dataset", "Persons", "file exported", "dataset", "file exported", "Layout exported", "dataset", "Layout exported", "record", "record", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "IDRecs", "transform", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "assign", "- assigned dirty", "IDRecs", "SELF.field#RecID -> AUTO_INCREMENT", "assign", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "Layout exported", "dataset", "Layout exported", "record", "record", "UID_Persons exported", "Project(DATASET : Persons , TRANSFORM : IDRecs)", "hqlproject", "File exported", "Layout exported", "dataset", "Layout exported", "record", "record", "rollup1", "RECORD_6.field#zipcode == RECORD_6.field#zipcode and RECORD_6.field#state == RECORD_6.field#state and RECORD_6.field#city == RECORD_6.field#city", "rollup1 CONDITION", "rollup1", "RollCSV", "transform", "rollup1", "RollCSV", "transform", "RollCSV", "SELF.field#csz_id -> IF(RECORD_6.field#csz_id < RECORD_6.field#csz_id)", "assign", "RollCSV", "SELF.field#city -> RECORD_6.field#city", "assign", "RollCSV", "SELF.field#state -> RECORD_6.field#state", "assign", "RollCSV", "SELF.field#zipcode -> RECORD_6.field#zipcode", "assign", "Rollup_CSZ", "rollup1", "rollup"];
-exports.records = ["record_Layout exported", "RECORD_5", "record_layout", "RECORD_0", "RECORD_5", "(UID_Persons exported.field#RecID,UID_Persons exported.field#ID,stringtouppercase(UID_Persons exported.field#FirstName,),stringtouppercase(UID_Persons exported.field#LastName,),stringtouppercase(UID_Persons exported.field#MiddleName,),stringtouppercase(UID_Persons exported.field#NameSuffix,),cast,UID_Persons exported.field#BureauCode,UID_Persons exported.field#Gender,cast,UID_Persons exported.field#StreetAddress,UID_Persons exported.field#City,UID_Persons exported.field#State,cast)", "RECORD_6", "(field#csz_id,field#city,field#state,field#zipcode)", "RECORD_4", "(field#recid,field#id,field#firstname,field#lastname,field#middlename,field#namesuffix,field#filedate,field#bureaucode,field#gender,field#birthdate,field#streetaddress,field#city,field#state,field#zipcode)", "RECORD_0", "(field#id,field#firstname,field#lastname,field#middlename,field#namesuffix,field#filedate,field#bureaucode,field#maritalstatus,field#gender,field#dependentcount,field#birthdate,field#streetaddress,field#city,field#state,field#zipcode)", "RECORD_1", "(field#recid,field#id,field#firstname,field#lastname,field#middlename,field#namesuffix,field#filedate,field#bureaucode,field#maritalstatus,field#gender,field#dependentcount,field#birthdate,field#streetaddress,field#city,field#state,field#zipcode)", "RECORD_3", "(field#RecID,field#ID,field#FirstName,field#LastName,field#MiddleName,field#NameSuffix,field#FileDate,field#BureauCode,field#MaritalStatus,field#Gender,field#DependentCount,field#BirthDate,field#StreetAddress,field#City,field#State,field#ZipCode)", "RECORD_2", "(field#ID,field#FirstName,field#LastName,field#MiddleName,field#NameSuffix,field#FileDate,field#BureauCode,field#MaritalStatus,field#Gender,field#DependentCount,field#BirthDate,field#StreetAddress,field#City,field#State,field#ZipCode)"];
+},{}],"../temp.js":[function(require,module,exports) {
+exports.first = ["", "", "AUTO_INCREMENT", "CatRecs", "CatThem", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "SELF.field#catvalues -> (((myrec.field#value1) * (myrec.field#value2)) * (D\"-\")) * (AUTO_INCREMENT)", "SELF.field#value1 -> myrec.field#value1", "SELF.field#value2 -> myrec.field#value2", "SomeFile", "myrec", "record_myrec"];
+exports.second = ["Project(DATASET : SomeFile , TRANSFORM : CatThem)", "output1", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "output1", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "CatRecs", "CatThem", "CatThem", "CatThem", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "SomeFile", "myrec"];
+exports.node = ["AUTO_INCREMENT", "CatRecs", "CatThem", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "SELF.field#catvalues -> (((myrec.field#value1) * (myrec.field#value2)) * (D\"-\")) * (AUTO_INCREMENT)", "SELF.field#value1 -> myrec.field#value1", "SELF.field#value2 -> myrec.field#value2", "SomeFile", "", "myrec", "output1", "record_myrec"];
+exports.fieldsToNodes_fields = {
+  0: ["SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2", "SELF.field#catvalues", "myrec.field#value1", "myrec.field#value2", "SELF.field#value1", "myrec.field#value1", "SELF.field#value2", "myrec.field#value2"],
+  1: ["SELF.field#catvalues", "myrec.field#value1", "myrec.field#value2", "SELF.field#value1", "myrec.field#value1", "SELF.field#value2", "myrec.field#value2"],
+  2: ["SELF.field#catvalues", "myrec.field#value1", "myrec.field#value2"],
+  3: ["SELF.field#value1", "myrec.field#value1"],
+  4: ["SELF.field#value2", "myrec.field#value2"],
+  5: ["SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2", "SELF.field#value1", "SELF.field#value2"]
+};
+exports.fieldsToNodes_nodeName = ["CatRecs", "CatThem", "SELF.field#catvalues -> (((myrec.field#value1) * (myrec.field#value2)) * (D\"-\")) * (AUTO_INCREMENT)", "SELF.field#value1 -> myrec.field#value1", "SELF.field#value2 -> myrec.field#value2", "SomeFile"];
+exports.compound_child = ["SELF.field#value2 -> myrec.field#value2", "SELF.field#value1 -> myrec.field#value1", "SELF.field#catvalues -> (((myrec.field#value1) * (myrec.field#value2)) * (D\"-\")) * (AUTO_INCREMENT)", "transform6"];
+exports.compound_parent = ["CatThem", "CatThem", "CatThem", "CatThem"];
+exports.labels = ["output1", "CatRecs", "dataset", "CatRecs", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "hqlproject", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "SomeFile", "dataset", "SomeFile", "myrec", "dataset", "myrec", "record", "record", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "CatThem", "transform", "CatThem", "SELF.field#catvalues -> (((myrec.field#value1) * (myrec.field#value2)) * (D\"-\")) * (AUTO_INCREMENT)", "assign", "CatThem", "SELF.field#value1 -> myrec.field#value1", "assign", "CatThem", "SELF.field#value2 -> myrec.field#value2", "assign", "CatRecs", "Project(DATASET : SomeFile , TRANSFORM : CatThem)", "hqlproject"];
+exports.records = ["record_myrec", "myrec"];
 },{}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -50415,11 +50423,17 @@ var _cytoscapeDagre = _interopRequireDefault(require("cytoscape-dagre"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var nodeHtmlLabel = require("cytoscape-node-html-label");
 
 var expandCollapse = require("cytoscape-expand-collapse");
 
-var data = require("../../temp5.js");
+var data = require("../../temp.js");
 
 var first = data.first;
 var second = data.second;
@@ -50428,6 +50442,8 @@ var compound_child = data.compound_child;
 var compound_parent = data.compound_parent;
 var records = data.records;
 var label_arr = data.labels;
+var fieldsToNodes_fields = data.fieldsToNodes_fields;
+var fieldsToNodes_nodeName = data.fieldsToNodes_nodeName;
 /*every 3 elements in the array forms [source,target,label] for an edge
   i.e. for some k, 
   data.labels[3*k] = source_name, data.labels[3*k+1] = target_name, data.labels[3*k+2] = label
@@ -50439,11 +50455,10 @@ var idx = {};
 for (var i = 0; i < node.length; i++) {
   idx[node[i]] = i;
 } // console.log(first);
+// console.log("cc : " + compound_child);
+// console.log("cp : " + compound_parent);
+// console.log(compound_parent[0]);
 
-
-console.log("cc : " + compound_child);
-console.log("cp : " + compound_parent);
-console.log(compound_parent[0]);
 
 _cytoscape.default.use(_cytoscapeDagre.default);
 
@@ -50456,35 +50471,49 @@ if (typeof (0, _cytoscape.default)("core", "nodeHtmlLabel") === "undefined") {
 }
 
 var Nodes = {};
-var expand_data = {};
+var expand_data = {}; // console.log(node.length);
 
 for (var _i = 0; _i < node.length; _i++) {
   var obj = void 0;
 
   if (compound_child.includes(node[_i])) {
     var index = compound_child.indexOf(node[_i]);
-    var par_id = node.indexOf(compound_parent[index]);
-    console.log(compound_child[index], compound_parent[index]);
+    var par_id = node.indexOf(compound_parent[index]); // console.log(compound_child[index],compound_parent[index])
+
     obj = {
-      data: {
-        id: _i,
-        label: node[_i],
-        parent: par_id
-      }
+      id: _i,
+      label: node[_i],
+      parent: par_id
     };
 
     if (node[par_id] == "transform") {
       if (!(par_id in expand_data)) expand_data[par_id] = String(node[_i]);else expand_data[par_id] += String(node[_i]);
     }
   } else obj = {
-    data: {
-      id: _i,
-      label: node[_i]
-    }
-  };
+    id: _i,
+    label: node[_i]
+  }; // ------- 30.05.2022 ---------
 
-  console.log(obj);
-  Nodes[_i] = obj;
+
+  var node_index = void 0; // console.log(node[i]);
+
+  if (fieldsToNodes_nodeName.includes(node[_i])) {
+    node_index = fieldsToNodes_nodeName.indexOf(node[_i]); // console.log('index = ',node_index);
+    // console.log("fname = ",fieldsToNodes_fields[node_index])
+
+    var fieldNames = fieldsToNodes_fields[node_index];
+
+    for (var l = 0; l < fieldNames.length; l++) {
+      var field = fieldNames[l];
+      obj = _objectSpread(_objectSpread({}, obj), {}, _defineProperty({}, field, 1));
+    }
+  } // --------------------------
+  // console.log(obj);
+
+
+  Nodes[_i] = {
+    data: obj
+  };
 } // console.log("nodes = " + Nodes);
 
 
@@ -50499,13 +50528,13 @@ for (var j = 0; j < label_arr.length; j += 3) {
 
 for (var _i2 = 0; _i2 < first.length; _i2++) {
   var s = idx[second[_i2]] + "-" + idx[first[_i2]];
-  var l = "edge";
-  if (s in LabelNames) l = LabelNames[s];
+  var _l = "edge";
+  if (s in LabelNames) _l = LabelNames[s];
   var _obj = {
     data: {
       source: idx[first[_i2]],
       target: idx[second[_i2]],
-      label: l
+      label: _l
     }
   }; // console.log(i,obj);
 
@@ -50522,12 +50551,10 @@ for (var _i3 = 0; _i3 < keys.length; _i3++) {
   }
 
   n.push(Nodes[_i3]);
-}
+} // console.log("n = ");
 
-console.log("n = ");
 
-for (var _i4 = 0; _i4 < n.length; _i4++) {
-  console.log(n[_i4]);
+for (var _i4 = 0; _i4 < n.length; _i4++) {// console.log(n[i]);
 }
 
 var elems = {
@@ -50819,17 +50846,26 @@ var cy = window.cy = (0, _cytoscape.default)({
     selector: 'node.semitransp',
     style: {
       'opacity': '0.1',
-      "text-max-width": "50"
+      "text-max-width": "50",
+      "background-color": 'magenta'
     }
   }, {
     selector: 'edge.highlight',
     style: {
-      'mid-target-arrow-color': '#FFF'
+      'mid-target-arrow-color': 'cyan',
+      'line-color': 'red'
     }
   }, {
     selector: 'edge.semitransp',
     style: {
       'opacity': '0.1'
+    }
+  }, {
+    selector: 'edge.selected_edges',
+    style: {
+      'line-color': 'red',
+      'target-arrow-color': '#b830f7',
+      'opacity': '1'
     }
   }],
   layout: {
@@ -50893,7 +50929,36 @@ var cy = window.cy = (0, _cytoscape.default)({
   //   }
   // ],
   elements: elems
-}); //---------- for collapse expand 
+});
+var selected_nodes = null;
+document.getElementById('submit').addEventListener('click', function (e) {
+  e.preventDefault();
+  var record = document.getElementById("recname").value;
+  var field = document.getElementById("field").value;
+  var queryVal = "node[" + record + ".field\\#" + field + "]=1";
+  console.log(queryVal);
+  selected_nodes = cy.nodes().filter(queryVal);
+  cy.$("*").not(selected_nodes).addClass('semitransp');
+  cy.$("*").not(selected_nodes).connectedEdges().addClass('semitransp');
+  selected_nodes.addClass('highlight');
+  selected_nodes.connectedEdges().addClass('highlight');
+  selected_nodes.connectedEdges().addClass('selected_edges');
+});
+document.getElementById('reset').addEventListener('click', function (e) {
+  cy.$("*").not(selected_nodes).removeClass('semitransp');
+  cy.$("*").not(selected_nodes).connectedEdges().removeClass('semitransp');
+  selected_nodes.removeClass('highlight');
+  selected_nodes.connectedEdges().removeClass('highlight');
+  selected_nodes.connectedEdges().removeClass('selected_edges');
+  selected_nodes = null;
+}); // console.log(selected_nodes);
+// selected_nodes = cy.nodes().filter('node[layout_t_recs.field\\#city]=1');
+//   console.log('original : node[layout_t_recs.field\\#city]=1');
+//   cy.$("*").not(selected_nodes).addClass('semitransp');
+//   cy.$("*").not(selected_nodes).connectedEdges().addClass('semitransp');
+//   selected_nodes.addClass('highlight');
+//   selected_nodes.connectedEdges().addClass('highlight');
+//---------- for collapse expand 
 
 var removed = {};
 cy.on('cxttapstart', 'node', function () {
@@ -50905,9 +50970,9 @@ cy.on('cxttapstart', 'node', function () {
     removed[id] = 1;
   } else {
     removed[id] = 1 - removed[id];
-  }
+  } // console.log(removed[id]);
 
-  console.log(removed[id]);
+
   if (removed[id]) node.successors().targets().addClass("hidden");else node.successors().targets().removeClass("hidden");
 }); // ---------------
 
@@ -50933,29 +50998,45 @@ cy.on('click', 'node', function (e) {
 
   if (tapped[this.id()]) {
     var neigh = e.target;
+
+    if (selected_nodes !== null) {
+      console.log('tapped ', selected_nodes);
+      cy.$("*").not(selected_nodes).removeClass('semitransp');
+      cy.$("*").not(selected_nodes).connectedEdges().removeClass('semitransp');
+      selected_nodes.removeClass('highlight');
+      selected_nodes.connectedEdges().removeClass('highlight');
+    }
+
     cy.elements().difference(neigh.outgoers().union(neigh.incomers())).not(neigh).addClass('semitransp');
     neigh.addClass('highlight').outgoers().addClass('highlight');
   } else {
     var neigh = e.target;
     cy.elements().removeClass('semitransp');
-    neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight'); // for records only
+    neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
 
-    console.log(cy.$('#' + this.id()).data('label'));
+    if (selected_nodes !== null) {
+      cy.$("*").not(selected_nodes).addClass('semitransp');
+      cy.$("*").not(selected_nodes).connectedEdges().addClass('semitransp');
+      selected_nodes.addClass('highlight');
+      selected_nodes.connectedEdges().addClass('highlight');
+    } // for records only
+    // console.log(cy.$('#' + this.id()).data('label'));
 
-    var _s = toUpper(cy.$('#' + this.id()).data('label').substring(0, 6));
 
-    if (_s == "RECORD") {
-      console.log('in');
+    var _s = cy.$('#' + this.id()).data('label').substring(0, 6).toUpperCase();
+
+    if (_s === "RECORD") {
+      // console.log('in');
       var name = cy.$('#' + this.id()).data('label');
       var content_idx = records.indexOf(name);
       var content = records[content_idx + 1];
-      download_func(name, content);
-      console.log('out');
+      download_func(name, content); // console.log('out');
     }
   }
 
   tapped[this.id()] = 1 - tapped[this.id()];
-}); // this.cytoscape.layout({
+}); // nothing beyond this
+// this.cytoscape.layout({
 //   name: "dagre",
 // }).run();
 // cy.on('mouseout', 'node', function(e){
@@ -51102,7 +51183,7 @@ cy.on('click', 'node', function (e) {
 //     toRemove[i].remove();
 //   } 
 // }
-},{"cytoscape":"node_modules/cytoscape/dist/cytoscape.cjs.js","cytoscape-dagre":"node_modules/cytoscape-dagre/cytoscape-dagre.js","cytoscape-node-html-label":"node_modules/cytoscape-node-html-label/dist/cytoscape-node-html-label.js","cytoscape-expand-collapse":"node_modules/cytoscape-expand-collapse/cytoscape-expand-collapse.js","../../temp5.js":"../temp5.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"cytoscape":"node_modules/cytoscape/dist/cytoscape.cjs.js","cytoscape-dagre":"node_modules/cytoscape-dagre/cytoscape-dagre.js","cytoscape-node-html-label":"node_modules/cytoscape-node-html-label/dist/cytoscape-node-html-label.js","cytoscape-expand-collapse":"node_modules/cytoscape-expand-collapse/cytoscape-expand-collapse.js","../../temp.js":"../temp.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -51130,7 +51211,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62114" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50862" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

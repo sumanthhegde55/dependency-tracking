@@ -9,7 +9,19 @@
 </head>
 
 <body>
-	<h1>cytoscape-dagre demo</h1>
+	<div>
+	<form style = "bottom:10;left:10" id='form' method="POST">
+		<label for="recname">Record Name :</label><br>
+		<input type="text" id="recname" name="recname" value=""><br>
+		<label for="field">Field name:</label><br>
+		<input type="text" id="field" name="field" value=""><br>
+		
+		<button type="button" id ='submit'>Submit</button>
+		<button type="button" id ='reset' >Reset</button>
+	  </form>
+	</div>
+
+
 	<div id="cy"></div>
 	<!-- Load application code at the end to ensure DOM is loaded -->
 	<script src="src/index.js">

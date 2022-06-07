@@ -1,0 +1,792 @@
+LEFT : 
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e87
+RIGHT : %e86  
+OPERATION : 1} 
+OUTPUTS : %e87 
+ANNOTATION : symbol tempeclcode exported
+CONSTANT : 
+
+LEFT : %e86
+RIGHT : %e85  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : location '/home/surya/Desktop/tempeclcode.ecl',26,1
+CONSTANT : 
+
+LEFT : %e85
+RIGHT : %e84  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : location '/home/surya/Desktop/tempeclcode.ecl',26,1
+CONSTANT : 
+
+LEFT : %e84
+RIGHT : %e76 %e80 %e82 %e83 
+OPERATION : output  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e83
+RIGHT : attr#$_uid_ 
+OPERATION : seq(1) 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e82
+RIGHT : %c81 
+OPERATION : attr#sequence  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c81
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 0
+
+LEFT : %e80
+RIGHT : %c78 %e79 
+OPERATION : attr#update  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e79
+RIGHT : 
+OPERATION : attr#always 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c78
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 1045385173
+
+LEFT : %t77
+RIGHT :  int4 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e76
+RIGHT : %e75  
+OPERATION : 23} 
+OUTPUTS : %e87 
+ANNOTATION : symbol CatRecs
+CONSTANT : 
+
+LEFT : %e75
+RIGHT : %e74  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : location '/home/surya/Desktop/tempeclcode.ecl',23,12
+CONSTANT : 
+
+LEFT : %e74
+RIGHT : %e36 %e71 %e44 %e72 
+OPERATION : hqlproject 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t73
+RIGHT :  table(%t41) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e72
+RIGHT : %e54 
+OPERATION : attr#$_countproject_  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e71
+RIGHT : %e70  
+OPERATION : 18} 
+OUTPUTS : %e87 
+ANNOTATION : symbol CatThem
+CONSTANT : 
+
+LEFT : %e70
+RIGHT : %e61 %e64 %e67 
+OPERATION : transform 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t69
+RIGHT :  transform(%t68) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t68
+RIGHT :  %t40 {original(%e39)} 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e67
+RIGHT : %as66  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : location '/home/surya/Desktop/tempeclcode.ecl',20,5
+CONSTANT : 
+
+LEFT : %as66
+RIGHT : %e65 %e47 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e65
+RIGHT : %e42 %e3 
+OPERATION : select 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e64
+RIGHT : %as63  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : location '/home/surya/Desktop/tempeclcode.ecl',20,5
+CONSTANT : 
+
+LEFT : %as63
+RIGHT : %e62 %e46 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e62
+RIGHT : %e42 %e2 
+OPERATION : select 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e61
+RIGHT : %as60  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : location '/home/surya/Desktop/tempeclcode.ecl',19,5
+CONSTANT : 
+
+LEFT : %as60
+RIGHT : %e43 %e59 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e59
+RIGHT : %e52 %e58 
+OPERATION : concat 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e58
+RIGHT : %e56 
+OPERATION : implicitcast 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t57
+RIGHT :  string(ascii) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e56
+RIGHT : %e54 
+OPERATION : implicitcast 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t55
+RIGHT :  int8 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e54
+RIGHT : counter seq(1) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t53
+RIGHT :  uint8 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e52
+RIGHT : %e49 %c50 
+OPERATION : concat 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t51
+RIGHT :  string3(ascii) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c50
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : D"-"
+
+LEFT : %e49
+RIGHT : %e46 %e47 
+OPERATION : concat 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t48
+RIGHT :  string2(ascii) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e47
+RIGHT : %e45 %e3 
+OPERATION : select 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e46
+RIGHT : %e45 %e2 
+OPERATION : select 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e45
+RIGHT : %e4 %e44 
+OPERATION : left 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e44
+RIGHT : attr#$_selectorsequence_ 
+OPERATION : seq(1) 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e43
+RIGHT : %e42 %e38 
+OPERATION : select 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e42
+RIGHT : %e39 
+OPERATION : self 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t41
+RIGHT :  row(%t40) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t40
+RIGHT :  record(%e39) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e39
+RIGHT : %e2 %e3 %e38 
+OPERATION : record  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e38
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : field#catvalues
+
+LEFT : %t37
+RIGHT :  string4(ascii) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e36
+RIGHT : %e35  
+OPERATION : 6} 
+OUTPUTS : %e87 
+ANNOTATION : symbol SomeFile
+CONSTANT : 
+
+LEFT : %e35
+RIGHT : %e34  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : location '/home/surya/Desktop/tempeclcode.ecl',6,13
+CONSTANT : 
+
+LEFT : %e34
+RIGHT : %e31 %e14 
+OPERATION : inlinetable 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t33
+RIGHT :  table(%t32) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t32
+RIGHT :  row(%t15) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e31
+RIGHT : %e17 %e19 %e24 %e27 %e29 
+OPERATION : transformlist 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t30
+RIGHT :  null 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e29
+RIGHT : %as21 %as28 
+OPERATION : transform 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %as28
+RIGHT : %e11 %c25 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e27
+RIGHT : %as26 %as13 
+OPERATION : transform 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %as26
+RIGHT : %e8 %c25 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c25
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : D"B"
+
+LEFT : %e24
+RIGHT : %as21 %as23 
+OPERATION : transform 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %as23
+RIGHT : %e11 %c22 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c22
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : D"X"
+
+LEFT : %as21
+RIGHT : %e8 %c20 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c20
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : D"A"
+
+LEFT : %e19
+RIGHT : %as10 %as18 
+OPERATION : transform 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %as18
+RIGHT : %e11 %c9 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e17
+RIGHT : %as10 %as13 
+OPERATION : transform 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t16
+RIGHT :  transform(%t15) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t15
+RIGHT :  %t5 {original(%e14)} 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e14
+RIGHT : %e4  
+OPERATION :  
+OUTPUTS : %e87 
+ANNOTATION : symbol myrec
+CONSTANT : 
+
+LEFT : %as13
+RIGHT : %e11 %c12 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c12
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : D"G"
+
+LEFT : %e11
+RIGHT : %e7 %e3 
+OPERATION : select 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %as10
+RIGHT : %e8 %c9 
+OPERATION : assign  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %c9
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : D"C"
+
+LEFT : %e8
+RIGHT : %e7 %e2 
+OPERATION : select 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e7
+RIGHT : %e4 
+OPERATION : self 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t6
+RIGHT :  row(%t5) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %t5
+RIGHT :  record(%e4) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e4
+RIGHT : %e2 %e3 
+OPERATION : record  
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+LEFT : %e3
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : field#value2
+
+LEFT : %e2
+RIGHT : 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : field#value1
+
+LEFT : %t1
+RIGHT :  string1(ascii) 
+OPERATION : 
+OUTPUTS : %e87 
+ANNOTATION : 
+CONSTANT : 
+
+ : 
+%e87 : %e86  
+%e86 : %e85  
+%e85 : %e84  
+%e84 : %e76 %e80 %e82 %e83 
+%e83 : attr#$_uid_ 
+%e82 : %c81 
+%c81 : 
+%e80 : %c78 %e79 
+%e79 : 
+%c78 : 
+%t77 :  int4 
+%e76 : %e75  
+%e75 : %e74  
+%e74 : %e36 %e71 %e44 %e72 
+%t73 :  table(%t41) 
+%e72 : %e54 
+%e71 : %e70  
+%e70 : %e61 %e64 %e67 
+%t69 :  transform(%t68) 
+%t68 :  %t40 {original(%e39)} 
+%e67 : %as66  
+%as66 : %e65 %e47 
+%e65 : %e42 %e3 
+%e64 : %as63  
+%as63 : %e62 %e46 
+%e62 : %e42 %e2 
+%e61 : %as60  
+%as60 : %e43 %e59 
+%e59 : %e52 %e58 
+%e58 : %e56 
+%t57 :  string(ascii) 
+%e56 : %e54 
+%t55 :  int8 
+%e54 : counter seq(1) 
+%t53 :  uint8 
+%e52 : %e49 %c50 
+%t51 :  string3(ascii) 
+%c50 : 
+%e49 : %e46 %e47 
+%t48 :  string2(ascii) 
+%e47 : %e45 %e3 
+%e46 : %e45 %e2 
+%e45 : %e4 %e44 
+%e44 : attr#$_selectorsequence_ 
+%e43 : %e42 %e38 
+%e42 : %e39 
+%t41 :  row(%t40) 
+%t40 :  record(%e39) 
+%e39 : %e2 %e3 %e38 
+%e38 : 
+%t37 :  string4(ascii) 
+%e36 : %e35  
+%e35 : %e34  
+%e34 : %e31 %e14 
+%t33 :  table(%t32) 
+%t32 :  row(%t15) 
+%e31 : %e17 %e19 %e24 %e27 %e29 
+%t30 :  null 
+%e29 : %as21 %as28 
+%as28 : %e11 %c25 
+%e27 : %as26 %as13 
+%as26 : %e8 %c25 
+%c25 : 
+%e24 : %as21 %as23 
+%as23 : %e11 %c22 
+%c22 : 
+%as21 : %e8 %c20 
+%c20 : 
+%e19 : %as10 %as18 
+%as18 : %e11 %c9 
+%e17 : %as10 %as13 
+%t16 :  transform(%t15) 
+%t15 :  %t5 {original(%e14)} 
+%e14 : %e4  
+%as13 : %e11 %c12 
+%c12 : 
+%e11 : %e7 %e3 
+%as10 : %e8 %c9 
+%c9 : 
+%e8 : %e7 %e2 
+%e7 : %e4 
+%t6 :  row(%t5) 
+%t5 :  record(%e4) 
+%e4 : %e2 %e3 
+%e3 : 
+%e2 : 
+%t1 :  string1(ascii) 
+%t1 : 
+%e2 : field#value1 -----> Constant
+%e3 : field#value2 -----> Constant
+%e4 : myrec -----> record
+%t5 : 
+%t6 : 
+%e7 : SELF -----> self(record)
+%e8 : SELF.field#value1 -----> select
+%c9 : D"C" -----> Constant
+%as10 : SELF.field#value1 -> D"C" -----> - assigned clean
+%e11 : SELF.field#value2 -----> select
+%c12 : D"G" -----> Constant
+%as13 : SELF.field#value2 -> D"G" -----> - assigned clean
+%e14 : myrec -----> dataset
+%t15 : 
+%t16 : 
+%e17 : transform1 -----> transform
+%as18 : SELF.field#value2 -> D"C" -----> - assigned clean
+%e19 : transform2 -----> transform
+%c20 : D"A" -----> Constant
+%as21 : SELF.field#value1 -> D"A" -----> - assigned clean
+%c22 : D"X" -----> Constant
+%as23 : SELF.field#value2 -> D"X" -----> - assigned clean
+%e24 : transform3 -----> transform
+%c25 : D"B" -----> Constant
+%as26 : SELF.field#value1 -> D"B" -----> - assigned clean
+%e27 : transform4 -----> transform
+%as28 : SELF.field#value2 -> D"B" -----> - assigned clean
+%e29 : transform5 -----> transform
+%t30 : 
+%e31 : transformlist -----> transformlist
+%t32 : 
+%t33 : 
+%e34 : myrec -----> inlinetable
+%e35 : myrec -----> inlinetable
+%e36 : SomeFile -----> dataset
+%t37 : 
+%e38 : field#catvalues -----> Constant
+%e39 : RECORD_1 -----> record
+%t40 : 
+%t41 : 
+%e42 : SELF -----> self(record)
+%e43 : SELF.field#catvalues -----> select
+%e44 : seq(1) -----> others
+%e45 : myrec -----> record
+%e46 : myrec.field#value1 -----> select
+%e47 : myrec.field#value2 -----> select
+%t48 : 
+%e49 : (myrec.field#value1) * (myrec.field#value2) -----> concatenate
+%c50 : D"-" -----> Constant
+%t51 : 
+%e52 : ((myrec.field#value1) * (myrec.field#value2)) * (D"-") -----> concatenate
+%t53 : 
+%e54 : AUTO_INCREMENT -----> counter
+%t55 : 
+%e56 : AUTO_INCREMENT -----> counter
+%t57 : 
+%e58 : AUTO_INCREMENT -----> counter
+%e59 : (((myrec.field#value1) * (myrec.field#value2)) * (D"-")) * (AUTO_INCREMENT) -----> concatenate
+%as60 : SELF.field#catvalues -> (((myrec.field#value1) * (myrec.field#value2)) * (D"-")) * (AUTO_INCREMENT) -----> - assigned dirty
+%e61 : SELF.field#catvalues -> (((myrec.field#value1) * (myrec.field#value2)) * (D"-")) * (AUTO_INCREMENT) -----> - assigned dirty
+%e62 : SELF.field#value1 -----> select
+%as63 : SELF.field#value1 -> myrec.field#value1 -----> - assigned dirty
+%e64 : SELF.field#value1 -> myrec.field#value1 -----> - assigned dirty
+%e65 : SELF.field#value2 -----> select
+%as66 : SELF.field#value2 -> myrec.field#value2 -----> - assigned dirty
+%e67 : SELF.field#value2 -> myrec.field#value2 -----> - assigned dirty
+%t68 : 
+%t69 : 
+%e70 : transform6 -----> transform
+%e71 : CatThem -----> transform
+%e72 : attr#$_countproject_ -----> others
+%t73 : 
+%e74 : hqlproject -----> hqlproject
+%e75 : hqlproject -----> hqlproject
+%e76 : CatRecs -----> dataset
+%t77 : 
+%c78 : 1045385173 -----> Constant
+%e79 : attr#always -----> others
+%e80 : attr#update -----> others
+%c81 : 0 -----> Constant
+%e82 : attr#sequence -----> others
+%e83 : seq(1) -----> others
+%e84 : CatRecs  -----> output
+%e85 : CatRecs  -----> output
+%e86 : CatRecs  -----> output
+%e87 : tempeclcode exported -----> dataset
+ : 

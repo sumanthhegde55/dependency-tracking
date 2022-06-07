@@ -29,7 +29,7 @@ unordered_map<string,vector<string>> ir_fields; // map containing fields related
 
 unordered_map<string,string> temp;
 
-ofstream File("temp5.js");
+ofstream File("temp.js");
 
 set<pair<string,string>> e;
 unordered_map<string,string> compound_nodes;
@@ -231,7 +231,7 @@ int main(){
     //redirecting ip and op
     ifstream inp;
     freopen("output.txt", "w", stdout);
-    inp.open("input5.txt");
+    inp.open("input4.txt");
     vector<string> txt;
     string s;
 	while(getline(inp,s)){

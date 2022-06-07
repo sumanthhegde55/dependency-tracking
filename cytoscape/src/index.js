@@ -3,7 +3,7 @@ import dagre from "cytoscape-dagre";
 var nodeHtmlLabel = require("cytoscape-node-html-label");
 var expandCollapse = require("cytoscape-expand-collapse");
 
-const data = require("../../temp5.js");
+const data = require("../../temp.js");
 
 const first = data.first;
 const second = data.second;
@@ -41,12 +41,13 @@ if (typeof cytoscape("core", "nodeHtmlLabel") === "undefined") {
 
 let Nodes = {};
 let expand_data = {}; 
+// console.log(node.length);
 for(let i=0;i<node.length;i++){
         let obj;
         if(compound_child.includes(node[i])){
             const index = compound_child.indexOf(node[i]);
             const par_id = node.indexOf(compound_parent[index]);
-            console.log(compound_child[index],compound_parent[index])
+            // console.log(compound_child[index],compound_parent[index])
 
             obj = {id : i, label : node[i], parent : par_id};
 
@@ -71,12 +72,12 @@ for(let i=0;i<node.length;i++){
 
             for(let l=0;l<fieldNames.length;l++){
               const field = fieldNames[l];
-              obj = { ...obj,[field] : true}
+              obj = { ...obj,[field] : 1}
             }
 
         }
         // --------------------------
-        console.log(obj);
+        // console.log(obj);
 
         Nodes[i] = ({data:obj});
 }
@@ -112,9 +113,9 @@ for(let i=0;i<keys.length;i++){
   }
   n.push(Nodes[i]);
 }
-console.log("n = ");
+// console.log("n = ");
 for (let i=0;i<n.length;i++) {
-  console.log(n[i]);
+  // console.log(n[i]);
 }
 var elems = {
     nodes : n,
@@ -423,12 +424,15 @@ var cy = (window.cy = cytoscape({
         style:{
           'opacity': '0.1',
           "text-max-width": "50",
+           "background-color":'magenta',
+           
         }
       },
       {
         selector:'edge.highlight',
         style:{
-          'mid-target-arrow-color': '#FFF'
+          'mid-target-arrow-color': 'cyan',
+          'line-color': 'red',
         }
       },
       {
@@ -437,6 +441,14 @@ var cy = (window.cy = cytoscape({
           'opacity': '0.1'
         }
       },
+      {
+        selector:'edge.selected_edges',
+        style:{
+          'line-color': 'red',
+          'target-arrow-color': '#b830f7',
+          'opacity':'1',
+        }
+      },  
   ],
 
   layout: {
@@ -510,8 +522,45 @@ var cy = (window.cy = cytoscape({
   
 }));
 
+let selected_nodes = null;
 
-// cy.nodes().data('layout.field#middlename').addClass('hidden')
+document.getElementById('submit').addEventListener('click',function(e){
+  e.preventDefault();
+
+  let record = document.getElementById("recname").value;
+  let field = document.getElementById("field").value;
+  let queryVal = "node[" + record + ".field\\#" + field + "]=1";
+  console.log(queryVal);
+  selected_nodes = cy.nodes().filter(queryVal);
+
+  cy.$("*").not(selected_nodes).addClass('semitransp');
+  cy.$("*").not(selected_nodes).connectedEdges().addClass('semitransp');
+  selected_nodes.addClass('highlight');
+  selected_nodes.connectedEdges().addClass('highlight');
+  selected_nodes.connectedEdges().addClass('selected_edges');
+
+});
+
+
+document.getElementById('reset').addEventListener('click',function(e){
+  
+  cy.$("*").not(selected_nodes).removeClass('semitransp');
+  cy.$("*").not(selected_nodes).connectedEdges().removeClass('semitransp');
+  selected_nodes.removeClass('highlight');
+  selected_nodes.connectedEdges().removeClass('highlight');
+
+  selected_nodes.connectedEdges().removeClass('selected_edges');
+  selected_nodes = null;
+
+});
+
+// console.log(selected_nodes);
+// selected_nodes = cy.nodes().filter('node[layout_t_recs.field\\#city]=1');
+//   console.log('original : node[layout_t_recs.field\\#city]=1');
+//   cy.$("*").not(selected_nodes).addClass('semitransp');
+//   cy.$("*").not(selected_nodes).connectedEdges().addClass('semitransp');
+//   selected_nodes.addClass('highlight');
+//   selected_nodes.connectedEdges().addClass('highlight');
 
 //---------- for collapse expand 
 const removed = {};
@@ -525,7 +574,7 @@ cy.on('cxttapstart','node',function(){
   else{
       removed[id] = 1 - removed[id];
   }
-  console.log(removed[id]);
+  // console.log(removed[id]);
   if(removed[id]) node.successors().targets().addClass("hidden");
   else node.successors().targets().removeClass("hidden"); 
 });
@@ -550,6 +599,13 @@ cy.on('click', 'node', function(e){
   if(tapped[this.id()]){
 
     var neigh = e.target;
+    if(selected_nodes !== null){
+        console.log('tapped ',selected_nodes);
+        cy.$("*").not(selected_nodes).removeClass('semitransp');
+        cy.$("*").not(selected_nodes).connectedEdges().removeClass('semitransp');
+        selected_nodes.removeClass('highlight');
+        selected_nodes.connectedEdges().removeClass('highlight');
+    }
     cy.elements().difference(neigh.outgoers().union(neigh.incomers())).not(neigh).addClass('semitransp');
     neigh.addClass('highlight').outgoers().addClass('highlight');
 
@@ -558,22 +614,39 @@ cy.on('click', 'node', function(e){
     var neigh = e.target;
     cy.elements().removeClass('semitransp');
     neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
-  
+    
+    if(selected_nodes !== null){
+        cy.$("*").not(selected_nodes).addClass('semitransp');
+        cy.$("*").not(selected_nodes).connectedEdges().addClass('semitransp');
+        selected_nodes.addClass('highlight');
+        selected_nodes.connectedEdges().addClass('highlight');
+    }
     // for records only
-    console.log(cy.$('#' + this.id()).data('label'));
-    const s = toUpper(cy.$('#' + this.id()).data('label').substring(0,6));
+    // console.log(cy.$('#' + this.id()).data('label'));
+    const s = cy.$('#' + this.id()).data('label').substring(0,6).toUpperCase();
     
     if(s === "RECORD"){
-      console.log('in');
+      // console.log('in');
       const name = cy.$('#' + this.id()).data('label');
       const content_idx = records.indexOf(name);
       const content = records[content_idx + 1];
       download_func(name,content);
-      console.log('out');
+      // console.log('out');
     }
   }
   tapped[this.id()] = 1 - tapped[this.id()];
 });
+
+
+// nothing beyond this
+
+
+
+
+
+
+
+
 
 // this.cytoscape.layout({
 //   name: "dagre",

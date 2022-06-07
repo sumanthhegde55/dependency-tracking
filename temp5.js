@@ -1,0 +1,10 @@
+exports.first = [];
+exports.second = [];
+exports.node = [];
+exports.fieldsToNodes_fields = {};
+exports.fieldsToNodes_nodeName = [];
+exports.compound_child=[];
+exports.compound_parent=[];
+exports.labels=[];
+exports.records = [];
+exports.transformStruct = []
