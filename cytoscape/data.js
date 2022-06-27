@@ -8,6 +8,10 @@ const fields={};
 
 for(let i=0;i<records.length;i+=2){
     const f = records[i+1].split(",");
+    for(let j=0;j<f.length;j++){
+        f[j] = f[j].replace('(','');
+        f[j] = f[j].replace(')','');
+    }
     console.log("F: ",f);
     fields[records[i]] = f;
 }
@@ -15,6 +19,7 @@ for(let i=0;i<records.length;i+=2){
 const getLabel = (name) =>{
         const newLabel = document.createElement("label");
         newLabel.setAttribute("for", 'radio-button');
+        name = name.replace("field#","");
         newLabel.innerHTML = name;
         newLabel.style.fontSize = 9;
         newLabel.style.overflowX = scroll;
@@ -25,6 +30,7 @@ const getButton = (name,value)=> {
         newButton.setAttribute("type", 'radio');
         newButton.setAttribute("id", 'radio-button');
         newButton.setAttribute("name", name);
+        value = value.replace("field#","");
         newButton.setAttribute("value", value);
         newButton.style.width = '8px';
         newButton.style.height = '8px';
@@ -40,7 +46,8 @@ const injectElements = (newButton,newLabel,name) => {
         return;
 }
 
-export const selectedFunc = (name,dependencies) => {
+export const selectedFunc = (name,dependencies,immediate) => {
+    document.getElementById("graph-node-selected").replaceChildren();
     console.log("name = " + name,"d = " + dependencies);
     const ele= document.createElement('div');
     const ele2 = document.createElement('div');
@@ -54,7 +61,21 @@ export const selectedFunc = (name,dependencies) => {
     for(let i=0;i<dependencies.length;i++){
         const nb = getButton("graph-node-selected",dependencies[i]);
         const nl = getLabel(dependencies[i]);
+
+        nb.onclick = (e) =>{
+            submitFunc(nb.value,null,1);
+        }
         injectElements(nb,nl,"graph-node-selected");
+    }
+
+    for(let i=0;i<immediate.length;i++){
+        const nb = getButton("immediate-fields",immediate[i]);
+        const nl = getLabel(immediate[i]);
+
+        nb.onclick = (e) =>{
+            submitFunc(nb.value,null,1);
+        }
+        injectElements(nb,nl,"immediate-fields");
     }
     return;
 }
@@ -73,7 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
                  
                  fieldButton.onclick = (e) =>{
                     //  e.preventDefault();
-                     submitFunc(recName.substring(7),fieldButton.value);
+                     const s = recName.substring(0,6) === "record" ? recName.substring(7) : recName;
+                     submitFunc(s,fieldButton.value,0);
                  }
 
                  injectElements(fieldButton,fieldLabel,"fields");
@@ -85,4 +107,3 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(i);
     }
 }, false);
-
