@@ -403,7 +403,7 @@ var cy = (window.cy = cytoscape({
 
 let selected_nodes = null;
 
-export const submitFunc = (record,field,flag) => {
+export const submitFunc = (record,field,flag,label=null) => {
   
   if(selected_nodes){
     console.log('clearing selected_nodes in submitFunc...');
@@ -421,7 +421,11 @@ export const submitFunc = (record,field,flag) => {
     console.log("record = ",record,"field = ",field);
     queryVal = "node[" + record + "." + field + "]=1";
   }
-  else queryVal = "node[" + record + "]=1",queryVal = queryVal.replace("#","\\#");
+  else if(flag > 0) queryVal = "node[" + record + "]=1",queryVal = queryVal.replace("#","\\#");
+  else{
+    console.log('label ' + label);
+    queryVal = "node[label=" + "'" + label + "'" + "]";
+  }
   console.log(queryVal);
   selected_nodes = cy.nodes().filter(queryVal);
 

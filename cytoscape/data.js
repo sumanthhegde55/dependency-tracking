@@ -3,7 +3,10 @@ const data = require("../temp5.js");
 
 const records = data.records;
 
+const nodes = data.node;
+
 console.log("data.js records = ",records);
+console.log(nodes.length)
 const fields={};
 
 for(let i=0;i<records.length;i+=2){
@@ -79,6 +82,7 @@ export const selectedFunc = (name,dependencies,immediate) => {
     }
     return;
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("datasets").replaceChildren();
     for(let i=0;i<records.length;i+=2){
@@ -105,5 +109,15 @@ document.addEventListener('DOMContentLoaded', function() {
         injectElements(newButton,newLabel,"datasets");
 
         console.log(i);
+    }
+    for(let i=0;i<nodes.length;i++){
+        const nodeLabel = getLabel(nodes[i]);
+        const nodeButton = getButton('nodes-list',nodes[i]);
+        nodeButton.onclick = (e) => {
+            console.log('node button clicked');
+            submitFunc(null,null,-1,nodeButton.value);
+        }
+
+        injectElements(nodeButton,nodeLabel,"nodes-list");
     }
 }, false);
