@@ -14,8 +14,8 @@ const compound_child = data.compound_child;
 const compound_parent = data.compound_parent;
 const records = data.records;
 const label_arr = data.labels; 
-// const fieldsToNodes_fields = data.fieldsToNodes_fields;
-// const fieldsToNodes_nodeName = data.fieldsToNodes_nodeName;
+const fieldsToNodes_fields = data.fieldsToNodes_fields;
+const fieldsToNodes_nodeName = data.fieldsToNodes_nodeName;
 const transformStruct = data.transformStruct;
 
 // const immediate_fields = data.immediate_fields;
@@ -68,19 +68,19 @@ for(let i=0;i<node.length;i++){
         let node_index; 
         // console.log(node[i]);
         //// start 25.06
-        // if(fieldsToNodes_nodeName.includes(node[i])){
-        //     node_index = fieldsToNodes_nodeName.indexOf(node[i]);
-        //     // console.log('index = ',node_index);
-        //     // console.log("fname = ",fieldsToNodes_fields[node_index])
+        if(fieldsToNodes_nodeName.includes(node[i])){
+            node_index = fieldsToNodes_nodeName.indexOf(node[i]);
+            // console.log('index = ',node_index);
+            // console.log("fname = ",fieldsToNodes_fields[node_index])
 
-        //     const fieldNames = fieldsToNodes_fields[node_index];
+            const fieldNames = fieldsToNodes_fields[node_index];
 
-        //     for(let l=0;l<fieldNames.length;l++){
-        //       const field = fieldNames[l];
-        //       obj = { ...obj,[field] : 1}
-        //     }
+            for(let l=0;l<fieldNames.length;l++){
+              const field = fieldNames[l];
+              obj = { ...obj,[field] : 1}
+            }
 
-        // }
+        }
         //// 25.06
         // --------------------------
         console.log(obj);
@@ -97,6 +97,7 @@ for(let j=0;j<label_arr.length;j+=3){
     const idx_target = node.indexOf(label_arr[j+1]);
     LabelNames[idx_source + "-" + idx_target] = label_arr[j+2];
 }
+console.log("labelnames ",LabelNames);
 
 for(let i=0;i<first.length;i++){
 
@@ -105,7 +106,7 @@ for(let i=0;i<first.length;i++){
   if(s in LabelNames) l = LabelNames[s];
 
   const obj = {data : {source : idx[first[i]], target : idx[second[i]], label : l}};
-  // console.log(i,obj);
+  console.log(s,i,obj);
   Edges.push(obj);
 }
 
@@ -450,29 +451,29 @@ const clickFunc = (s) => {
     selected_nodes = null;
   }
   const node_index = fieldsToNodes_nodeName.indexOf(s);
-  // const fieldNames = fieldsToNodes_fields[node_index];
-  // const immediate = fieldsToNodes_fields[node_index].slice(0,fieldsToNodes_fields[node_index].length/3);
-  // selectedFunc(s,fieldNames,immediate);
+  const fieldNames = fieldsToNodes_fields[node_index];
+  const immediate = fieldsToNodes_fields[node_index];
+  selectedFunc(s,fieldNames,immediate);
   console.log('sent');
   return;
 }
 
 //---------- for collapse expand 
 const removed = {};
-cy.on('cxttapstart','node',function(){
-  const node = cy.nodes('#' + this.id());
-  const id = this.id();
-  node.successors().targets().addClass("hidden");
-  if(!(id in removed)){
-      removed[id] = 1;
-  }
-  else{
-      removed[id] = 1 - removed[id];
-  }
-  console.log(removed[id]);
-  if(removed[id]) node.successors().targets().addClass("hidden");
-  else node.successors().targets().removeClass("hidden"); 
-});
+// cy.on('cxttapstart','node',function(){
+//   const node = cy.nodes('#' + this.id());
+//   const id = this.id();
+//   node.successors().targets().addClass("hidden");
+//   if(!(id in removed)){
+//       removed[id] = 1;
+//   }
+//   else{
+//       removed[id] = 1 - removed[id];
+//   }
+//   console.log(removed[id]);
+//   if(removed[id]) node.successors().targets().addClass("hidden");
+//   else node.successors().targets().removeClass("hidden"); 
+// });
 // ---------------
 let tapped={};
 cy.on('click', 'node', function(e){

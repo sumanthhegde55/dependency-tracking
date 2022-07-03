@@ -121,8 +121,10 @@ void addedge(string node,string present,unordered_map<string,struct node> &mp2,s
                     y = mp2[y].right[0];
                     string transform_name = fieldMapper[node].first;
                     string recStruct_name = fieldMapper[y].first;
+                    // cout << "node : " << node << "\nname of transform : " << transform_name << "\nrecname : " << recStruct_name <<"\n";
                     // transform_recStruct[transform_name] = recName_to_structure[recStruct_name];
                     transform_recStruct[recName_to_structure[recStruct_name]] = transform_name_annotation[transform_name];
+                    // cout << recName_to_structure[recStruct_name] << "\n" << transform_name_annotation[transform_name] << "\n\n\n";
                     break;
                 }
             }
@@ -233,7 +235,8 @@ int main(){
     //redirecting ip and op
     ifstream inp;
     freopen("output.txt", "w", stdout);
-    inp.open("input6.txt");
+    cout << "started reading\n";
+    inp.open("input.txt");
     vector<string> txt;
     string s;
 	while(getline(inp,s)){
@@ -241,6 +244,7 @@ int main(){
 	}
 	inp.close();
 
+    cout << "finished.\n";
 
 
     //actual main code
@@ -249,7 +253,8 @@ int main(){
     //mp -> maplist between token and right part of IR 
     //later converted to actual map for dfs
     struct node vals;
- 
+    
+    cout << "started tokenization...\n";
     for(string c: txt){
         // cout<<c<<"\n";
         string t;
@@ -307,6 +312,7 @@ int main(){
                 t = "";
                 i++;
                 while(c[i] != '}' && c[i]!= '@') annotation += c[i++];
+                // break;
             }
             else if(c[i] == ':') break;
             else if(c[i] == '['){
@@ -322,27 +328,28 @@ int main(){
         }
         // if(cnst.substr(0,5) == "field") cnst = cnst.substr(6);
 
-         cout << "LEFT : " << left << endl;
-         cout << "RIGHT : ";
-         for(string x : right) cout<<x<<" ";
-         cout<<endl;
-         cout<<"OPERATION : ";
-         for(string x : func) cout<<x<<" ";
-         cout<<endl;
-         cout<<"OUTPUTS : ";
-         for(string x : outputs) cout<<x<<" ";
-         cout<<endl;
-         cout<<"ANNOTATION : "<<annotation;
-         cout<<endl;
-         cout<<"CONSTANT : "<<cnst;
-         cout<<endl<<endl; 
+        //  cout << "LEFT : " << left << endl;
+        //  cout << "RIGHT : ";
+        //  for(string x : right) cout<<x<<" ";
+        //  cout<<endl;
+        //  cout<<"OPERATION : ";
+        //  for(string x : func) cout<<x<<" ";
+        //  cout<<endl;
+        //  cout<<"OUTPUTS : ";
+        //  for(string x : outputs) cout<<x<<" ";
+        //  cout<<endl;
+        //  cout<<"ANNOTATION : "<<annotation;
+        //  cout<<endl;
+        //  cout<<"CONSTANT : "<<cnst;
+        //  cout<<endl<<endl; 
          vals.cnst = cnst;
          vals.annotation = annotation;
          vals.right = right;
          vals.func = func;
          mp.push_back({left,vals});
     }
-    
+     
+     cout << "finished\n";
 
     unordered_map<string,struct node> mp2(mp.begin(), mp.end());
 
@@ -405,7 +412,7 @@ int main(){
             //
             string func = y.func[0];
             if(func.substr(0,5) == "field"){
-                if(y.right.size() > 0){
+                if(y.right.size() > 0 && fieldMapper[y.right[0]].second != "others"){
                     fieldMapper[le] = make_pair(fieldMapper[y.right[0]].first,"field");
                 }
                 else fieldMapper[le] = make_pair(func.substr(6),"field");
@@ -610,46 +617,49 @@ int main(){
          The graphing library has the option to filter based on attributes defined for each node. We are adding these related fields as attributes.
         */
        
-        // unordered_map<string,vector<string>> node_fields;
-        // unordered_map<string,vector<string>> immediate_node_fields;
+        unordered_map<string,vector<string>> node_fields;
+        unordered_map<string,vector<string>> immediate_node_fields;
 
-        // for(int i=(int)mp.size()-1;i>=0;i--){
-        //      auto x = mp[i];
-        //      string le = x.first;
-        //      struct node y = x.second;
+        for(int i=(int)mp.size()-1;i>=0;i--){
+             auto x = mp[i];
+             string le = x.first;
+             struct node y = x.second;
 
-        //      if(y.cnst.substr(0,5) == "field"){
-        //         ir_fields[le].push_back(fieldMapper[le].first);
-        //         // File << le << endl;
-        //         // for(auto x : ir_fields[le]){
-        //         //     File << x << endl;
-        //         // }
-        //         // File << "-----------------\n";
-        //      }
-        //      if(y.func.size() > 0){
-        //         string s = "`" + fieldMapper[x.first].first + "`";
-        //         if(y.func[0] == "select"){
-        //             string s2 = '"' + fieldMapper[y.right[0]].first + '.' + fieldMapper[y.right[1]].first + '"'; 
-        //             ir_fields[le].push_back(s2);
-        //             immediate_node_fields[s].push_back(s2);
-        //     //  File << le << " " << ir_fields[le][0] << endl; 
-        //         }
-        //         else{
-        //             for(auto z : y.right){
-        //                  immediate_node_fields[s].push_back(fieldMapper[z].first);
-        //                  for(auto y : ir_fields[z])
-        //                     ir_fields[le].push_back(y);
-        //             }
-        //         }
-        //         // string s = "`" + fieldMapper[x.first].first + "`";
-        //         node_fields[s] = ir_fields[le];
-        //         // File << le << endl;
-        //         // for(auto x : ir_fields[le]){
-        //         //     File << x << endl;
-        //         // }
-        //         // File << "-----------------\n";
-        //      }
-        // }
+             if(y.cnst.substr(0,5) == "field"){
+                ir_fields[le].push_back(fieldMapper[le].first);
+                // File << le << endl;
+                // for(auto x : ir_fields[le]){
+                //     File << x << endl;
+                // }
+                // File << "-----------------\n";
+             }
+             if(y.func.size() > 0){
+                string s = "`" + fieldMapper[x.first].first + "`";
+                if(y.func[0] == "select"){
+                    string s2 = '"' + fieldMapper[y.right[0]].first + '.' + fieldMapper[y.right[1]].first + '"'; 
+                    ir_fields[le].push_back(s2);
+                    immediate_node_fields[s].push_back(s2);
+            //  File << le << " " << ir_fields[le][0] << endl; 
+                }
+                else{
+                    for(auto z : y.right){
+                         immediate_node_fields[s].push_back(fieldMapper[z].first);
+                         
+                         for(auto y : ir_fields[z])
+                            ir_fields[le].push_back(y);
+
+                         if(ir_fields[le].size() > 100) break;
+                    }
+                }
+                // string s = "`" + fieldMapper[x.first].first + "`";
+                node_fields[s] = ir_fields[le];
+                // File << le << endl;
+                // for(auto x : ir_fields[le]){
+                //     File << x << endl;
+                // }
+                // File << "-----------------\n";
+             }
+        }
       /* ----------------------------*/
 
 
@@ -702,50 +712,50 @@ int main(){
     for(auto x : nodes) File << x << ",";
     File << "];\n";
 
-    // File << "exports.fieldsToNodes_fields = {";
+    File << "exports.fieldsToNodes_fields = {";
 
-    // vector<string> vec;
-    // int i=0;
-    // for(auto x : nodes){
-    //     // File << x << " : [";
-    //     if(node_fields[x].size() == 0) continue;
+    vector<string> vec;
+    int i=0;
+    for(auto x : nodes){
+        // File << x << " : [";
+        if(node_fields[x].size() == 0) continue;
 
-    //     vec.push_back(x);
+        vec.push_back(x);
 
-    //     string str = to_string(i++);
-    //     File << str << " : [";
-    //     for(auto y : node_fields[x])
-    //         File <<"`" + y << "`" <<",";
-    //     File << "],\n"; 
+        string str = to_string(i++);
+        File << str << " : [";
+        for(auto y : node_fields[x])
+            File <<"`" + y << "`" <<",";
+        File << "],\n"; 
         
-    // }
+    }
 
-    // File << "};\n";
+    File << "};\n";
 
-    // the index is mentioned above the corresponding name is here in array
+    // the index is mentioned above,the corresponding name is here in array
     // `` gives error when used as key. hence workaround used is an index in above object
     // the index in below array gives the actual node name
 
     /// 21.06 -----------
-    // File << "exports.immediate_fields = {";
-    // i=0;
-    // for(auto x : nodes){
-    //     // File << x << " : [";
-    //     if(node_fields[x].size() == 0) continue;
+    File << "exports.immediate_fields = {";
+    i=0;
+    for(auto x : nodes){
+        // File << x << " : [";
+        if(node_fields[x].size() == 0) continue;
 
-    //     string str = to_string(i++);
-    //     File << str << " : [";
-    //     for(auto y : immediate_node_fields[x])
-    //         File << "`" + y << "`" <<",";
-    //     File << "],\n"; 
-    // }
-    // File << "};\n";
+        string str = to_string(i++);
+        File << str << " : [";
+        for(auto y : immediate_node_fields[x])
+            File << "`" + y << "`" <<",";
+        File << "],\n"; 
+    }
+    File << "};\n";
     /// 21.06 ------------
 
-    // File << "exports.fieldsToNodes_nodeName = ["; 
+    File << "exports.fieldsToNodes_nodeName = ["; 
 
-    // for(i=0;i<(int)vec.size();i++) File << vec[i] << ", ";
-    // File << "];\n";
+    for(i=0;i<(int)vec.size();i++) File << vec[i] << ", ";
+    File << "];\n";
 
     File << "exports.compound_child=[";
     for(auto x : compound_nodes){

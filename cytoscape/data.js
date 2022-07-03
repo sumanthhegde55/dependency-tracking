@@ -51,6 +51,7 @@ const injectElements = (newButton,newLabel,name) => {
 
 export const selectedFunc = (name,dependencies,immediate) => {
     document.getElementById("graph-node-selected").replaceChildren();
+    document.getElementById("immediate-fields").replaceChildren();
     console.log("name = " + name,"d = " + dependencies);
     const ele= document.createElement('div');
     const ele2 = document.createElement('div');
@@ -71,7 +72,7 @@ export const selectedFunc = (name,dependencies,immediate) => {
         injectElements(nb,nl,"graph-node-selected");
     }
 
-    for(let i=0;i<immediate.length;i++){
+    for(let i=0;i<immediate.length/3;i++){
         const nb = getButton("immediate-fields",immediate[i]);
         const nl = getLabel(immediate[i]);
 
