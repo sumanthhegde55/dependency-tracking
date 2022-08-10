@@ -47600,224 +47600,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
 /***/ })
 /******/ ]);
 });
-},{"dagre":"node_modules/dagre/index.js"}],"../2/temp2.js":[function(require,module,exports) {
-exports.first = ["16", "DeclareData exported", "DeclareData exported", "GetDetails", "MyFunc", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "PrintFunc", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "SELF.field#gender -> layout_person.field#gender", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "Xform", "count1", "count2", "ds", "filter1", "layout_person", "n", "normalize1", "normalize2", "record_ds", "record_layout_person"];
-exports.second = ["normalize1", "count2", "normalize2", "normalize2", "output1", "filter1", "output2", "GetDetails", "ds", "Xform", "GetDetails", "GetDetails", "normalize1", "MyFunc", "normalize2", "normalize1", "count1", "DeclareData exported", "filter1", "n", "PrintFunc", "ds", "layout_person"];
-exports.node = ["16", "DeclareData exported", "GetDetails", "MyFunc", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "PrintFunc", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "SELF.field#gender -> layout_person.field#gender", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "Xform", "count1", "count2", "ds", "filter1", "layout_person", "n", "normalize1", "normalize2", "output1", "output2", "record_ds", "record_layout_person"];
-;
-exports.fieldsToNodes_fields = {
-  0: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip"],
-  1: ["\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\"", "\"SELF.field#gender\"", "\"layout_person.field#gender\"", "\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""],
-  2: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\"", "\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
-  3: ["\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
-  4: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\"", "\"SELF.field#gender\"", "\"layout_person.field#gender\"", "\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""],
-  5: ["\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""],
-  6: ["\"SELF.field#chars\""],
-  7: ["\"SELF.field#flag\"", "\"ds.field#chars\""],
-  8: ["\"SELF.field#gender\"", "\"layout_person.field#gender\""],
-  9: ["\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\""],
-  10: ["\"SELF.field#flag\"", "\"ds.field#chars\""],
-  11: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\"", "\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
-  12: ["\"SELF.field#chars\"", "field#chars"],
-  13: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\"", "\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
-  14: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip"],
-  15: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\""],
-  16: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\""],
-  17: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\"", "\"SELF.field#gender\"", "\"layout_person.field#gender\"", "\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""]
-};
-exports.immediate_fields = {
-  0: ["table", ""],
-  1: ["transform1", ""],
-  2: ["count", ""],
-  3: ["NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag", "1"],
-  4: ["NORMALIZED(\n, DATASET : DeclareData exportedTRANSFORMATION : GetDetails)", ""],
-  5: ["SELF.field#address", "(((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", ""],
-  6: ["SELF.field#chars", "D\"abc~xyz~def~fred\""],
-  7: ["SELF.field#flag", "IF(substring(ds.field#chars) == D\"~\")", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", ""],
-  8: ["SELF.field#gender", "layout_person.field#gender", "SELF.field#gender -> layout_person.field#gender", ""],
-  9: ["SELF.field#name", "(((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", ""],
-  10: ["transform3", ""],
-  11: ["DeclareData exported", "RECORDSET({x where NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1})"],
-  12: ["ds", ""],
-  13: ["n", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "RECORDSET({x where NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1})", ""],
-  14: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "layout_person", "", "layout_person", "seq(1)"],
-  15: ["NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform)", ""],
-  16: ["ds", "16", "Xform", "attr#$_countproject_", "seq(2)", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform)", ""],
-  17: ["DeclareData exported", "count", "GetDetails", "seq(1)", "NORMALIZED(\n, DATASET : DeclareData exportedTRANSFORMATION : GetDetails)", ""]
-};
-exports.fieldsToNodes_nodeName = ["DeclareData exported", "GetDetails", "MyFunc", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "PrintFunc", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "SELF.field#gender -> layout_person.field#gender", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "Xform", "count2", "ds", "filter1", "layout_person", "n", "normalize1", "normalize2"];
-exports.compound_child = ["SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#gender -> layout_person.field#gender", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "transform3", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "transform1"];
-exports.compound_parent = ["GetDetails", "GetDetails", "", "GetDetails", "Xform", "Xform", "GetDetails"];
-exports.labels = ["output1", "MyFunc", "dataset", "filter1", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "conditional", "filter1", "n", "dataset", "normalize1", "ds", "dataset", "normalize1", "ds", "dataset", "ds", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "assign", "ds", "record", "record", "normalize1", "16", "ITERATIONS", "normalize1", "16", "Constant", "normalize1", "Xform", "transform", "normalize1", "Xform", "transform", "Xform", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "assign", "n", "normalize1", "normalize", "count1", "filter1", "filter", "MyFunc", "count1", "count", "output1", "", "", "output2", "PrintFunc", "dataset", "normalize2", "DeclareData exported", "dataset", "normalize2", "DeclareData exported", "dataset", "DeclareData exported", "layout_person", "dataset", "layout_person", "record", "record", "DeclareData exported", "", "", "normalize2", "count2", "count", "count2", "DeclareData exported", "dataset", "DeclareData exported", "layout_person", "dataset", "layout_person", "record", "record", "DeclareData exported", "", "", "normalize2", "count2", "ITERATIONS", "normalize2", "GetDetails", "transform", "normalize2", "GetDetails", "transform", "GetDetails", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "assign", "GetDetails", "SELF.field#gender -> layout_person.field#gender", "assign", "GetDetails", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "assign", "PrintFunc", "normalize2", "normalize", "output2", "", "", "output2", "", ""];
-exports.records = ["record_layout_person", "(field#personid,field#firstname,field#lastname,field#middleinitial,field#gender,field#street,field#city,field#state,field#zip)", "record_ds", "(field#chars)"];
-exports.transformStruct = ["GetDetails", "(field#name,field#address,field#gender)", "Xform", "(field#flag)", "", "(field#chars)"];
-},{}],"data.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.selectedFunc = void 0;
-
-var _index = require("./src/index.js");
-
-var data = require("../2/temp2.js");
-
-var records = data.records;
-var nodes = data.node;
-console.log("data.js records = ", records);
-console.log(nodes.length);
-var fields = {};
-
-for (var i = 0; i < records.length; i += 2) {
-  var f = records[i + 1].split(",");
-
-  for (var j = 0; j < f.length; j++) {
-    f[j] = f[j].replace('(', '');
-    f[j] = f[j].replace(')', '');
-  }
-
-  console.log("F: ", f);
-  fields[records[i]] = f;
-}
-
-var getLabel = function getLabel(name) {
-  var newLabel = document.createElement("label");
-  newLabel.setAttribute("for", 'radio-button');
-  name = name.replace("field#", "");
-  newLabel.innerHTML = name;
-  newLabel.style.fontSize = 9;
-  newLabel.style.overflowX = scroll;
-  return newLabel;
-};
-
-var getButton = function getButton(name, value) {
-  var newButton = document.createElement("input");
-  newButton.setAttribute("type", 'radio');
-  newButton.setAttribute("id", 'radio-button');
-  newButton.setAttribute("name", name);
-  value = value.replace("field#", "");
-  newButton.setAttribute("value", value);
-  newButton.style.width = '8px';
-  newButton.style.height = '8px';
-  return newButton;
-};
-
-var injectElements = function injectElements(newButton, newLabel, name) {
-  var linebreak = document.createElement("br");
-  document.getElementById(name).appendChild(newButton);
-  document.getElementById(name).appendChild(newLabel);
-  document.getElementById(name).appendChild(linebreak);
-  return;
-};
-
-var selectedFunc = function selectedFunc(name, dependencies, immediate) {
-  document.getElementById("graph-node-selected").replaceChildren();
-  if (dependencies == null) return; // document.getElementById("immediate-fields").replaceChildren();
-
-  console.log("name = " + name, "d = " + dependencies);
-  var ele = document.createElement('div');
-  var ele2 = document.createElement('div');
-  ele.id = 'name';
-  ele.innerHTML = "node : " + name;
-  ele.style.fontSize = 9;
-  ele2.style.fontSize = 9;
-  ele2.innerHTML = 'dependencies : ';
-  document.getElementById("graph-node-selected").appendChild(ele, ele2);
-
-  var _loop = function _loop(_i) {
-    var nb = getButton("graph-node-selected", dependencies[_i]);
-    var nl = getLabel(dependencies[_i]);
-
-    nb.onclick = function (e) {
-      var q = nb.value.replace(".field#", "");
-      q = q.replace("field#", ""); // const q = nb.value;
-
-      (0, _index.submitFunc)(q.slice(0, q.length), null, 1);
-    };
-
-    injectElements(nb, nl, "graph-node-selected");
-  };
-
-  for (var _i = 0; _i < dependencies.length; _i++) {
-    _loop(_i);
-  }
-
-  for (var _i2 = 0; _i2 < immediate.length / 3; _i2++) {
-    // const nb = getButton("immediate-fields",immediate[i]);
-    var nl = getLabel(immediate[_i2]); // nb.onclick = (e) =>{
-    //     submitFunc(nb.value,null,1);
-    // }
-    // injectElements(nb,nl,"immediate-fields");
-  }
-
-  return;
-};
-
-exports.selectedFunc = selectedFunc;
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById("datasets").replaceChildren();
-  document.getElementById("nodes-list").replaceChildren();
-
-  var _loop2 = function _loop2(_i3) {
-    var newLabel = getLabel(records[_i3]);
-    var newButton = getButton('datasets', records[_i3]);
-    newButton.addEventListener('click', function () {
-      document.getElementById("fields").replaceChildren();
-      var recName = newButton.value;
-
-      var _loop4 = function _loop4(_j) {
-        var fieldLabel = getLabel(fields[recName][_j]);
-        var fieldButton = getButton('fields', fields[recName][_j]);
-
-        fieldButton.onclick = function (e) {
-          //  e.preventDefault();
-          var s = recName.substring(0, 6) === "record" ? recName.substring(7) : recName;
-          (0, _index.submitFunc)(s, fieldButton.value, 0);
-        };
-
-        injectElements(fieldButton, fieldLabel, "fields");
-      };
-
-      for (var _j = 0; _j < fields[recName].length; _j++) {
-        _loop4(_j);
-      }
-    });
-    injectElements(newButton, newLabel, "datasets");
-    console.log(_i3);
-  };
-
-  for (var _i3 = 0; _i3 < records.length; _i3 += 2) {
-    _loop2(_i3);
-  }
-
-  var _loop3 = function _loop3(_i4) {
-    var nodeLabel = getLabel(nodes[_i4]);
-    var nodeButton = getButton('nodes-list', nodes[_i4]);
-
-    nodeButton.onclick = function (e) {
-      console.log('node button clicked');
-      var val = nodeButton.value.replace(".", ".field#"); // val.replaceAll(".field#field#",".field#");
-
-      (0, _index.submitFunc)(null, null, -1, val);
-    };
-
-    injectElements(nodeButton, nodeLabel, "nodes-list");
-  };
-
-  for (var _i4 = 0; _i4 < nodes.length; _i4++) {
-    _loop3(_i4);
-  }
-
-  var fileContent = "";
-
-  for (var r = 0; r < records.length; r += 2) {
-    for (var _f = 0; _f < fields[records[r]].length; _f++) {
-      fileContent = (0, _index.getReportDetails)(records[r], fields[records[r]][_f]);
-    }
-  }
-}, false);
-},{"./src/index.js":"src/index.js","../2/temp2.js":"../2/temp2.js"}],"node_modules/cytoscape-node-html-label/dist/cytoscape-node-html-label.js":[function(require,module,exports) {
+},{"dagre":"node_modules/dagre/index.js"}],"node_modules/cytoscape-node-html-label/dist/cytoscape-node-html-label.js":[function(require,module,exports) {
 var define;
 (function () {
     "use strict";
@@ -50614,6 +50397,57 @@ module.exports = function (cy, api) {
 
 
 
+},{}],"../2/temp2.js":[function(require,module,exports) {
+exports.first = ["16", "DeclareData exported", "DeclareData exported", "GetDetails", "MyFunc", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "PrintFunc", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "SELF.field#gender -> layout_person.field#gender", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "Xform", "count1", "count2", "ds", "filter1", "layout_person", "n", "normalize1", "normalize2", "record_ds", "record_layout_person"];
+exports.second = ["normalize1", "count2", "normalize2", "normalize2", "output1", "filter1", "output2", "GetDetails", "ds", "Xform", "GetDetails", "GetDetails", "normalize1", "MyFunc", "normalize2", "normalize1", "count1", "DeclareData exported", "filter1", "n", "PrintFunc", "ds", "layout_person"];
+exports.node = ["16", "DeclareData exported", "GetDetails", "MyFunc", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "PrintFunc", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "SELF.field#gender -> layout_person.field#gender", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "Xform", "count1", "count2", "ds", "filter1", "layout_person", "n", "normalize1", "normalize2", "output1", "output2", "record_ds", "record_layout_person"];
+;
+exports.fieldsToNodes_fields = {
+  0: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip"],
+  1: ["\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\"", "\"SELF.field#gender\"", "\"layout_person.field#gender\"", "\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""],
+  2: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\"", "\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
+  3: ["\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
+  4: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\"", "\"SELF.field#gender\"", "\"layout_person.field#gender\"", "\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""],
+  5: ["\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""],
+  6: ["\"SELF.field#chars\""],
+  7: ["\"SELF.field#flag\"", "\"ds.field#chars\""],
+  8: ["\"SELF.field#gender\"", "\"layout_person.field#gender\""],
+  9: ["\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\""],
+  10: ["\"SELF.field#flag\"", "\"ds.field#chars\""],
+  11: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\"", "\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
+  12: ["\"SELF.field#chars\"", "field#chars"],
+  13: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\"", "\"NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag\""],
+  14: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip"],
+  15: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\""],
+  16: ["\"SELF.field#chars\"", "field#chars", "\"SELF.field#flag\"", "\"ds.field#chars\""],
+  17: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "\"SELF.field#name\"", "\"layout_person.field#firstname\"", "\"layout_person.field#middleinitial\"", "\"layout_person.field#lastname\"", "\"SELF.field#gender\"", "\"layout_person.field#gender\"", "\"SELF.field#address\"", "\"layout_person.field#street\"", "\"layout_person.field#city\"", "\"layout_person.field#state\"", "\"layout_person.field#zip\""]
+};
+exports.immediate_fields = {
+  0: ["table", ""],
+  1: ["transform1", ""],
+  2: ["count", ""],
+  3: ["NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag", "1"],
+  4: ["NORMALIZED(\n, DATASET : DeclareData exportedTRANSFORMATION : GetDetails)", ""],
+  5: ["SELF.field#address", "(((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", ""],
+  6: ["SELF.field#chars", "D\"abc~xyz~def~fred\""],
+  7: ["SELF.field#flag", "IF(substring(ds.field#chars) == D\"~\")", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", ""],
+  8: ["SELF.field#gender", "layout_person.field#gender", "SELF.field#gender -> layout_person.field#gender", ""],
+  9: ["SELF.field#name", "(((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", ""],
+  10: ["transform3", ""],
+  11: ["DeclareData exported", "RECORDSET({x where NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1})"],
+  12: ["ds", ""],
+  13: ["n", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "RECORDSET({x where NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1})", ""],
+  14: ["field#personid", "field#firstname", "field#lastname", "field#middleinitial", "field#gender", "field#street", "field#city", "field#state", "field#zip", "layout_person", "", "layout_person", "seq(1)"],
+  15: ["NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform)", ""],
+  16: ["ds", "16", "Xform", "attr#$_countproject_", "seq(2)", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform)", ""],
+  17: ["DeclareData exported", "count", "GetDetails", "seq(1)", "NORMALIZED(\n, DATASET : DeclareData exportedTRANSFORMATION : GetDetails)", ""]
+};
+exports.fieldsToNodes_nodeName = ["DeclareData exported", "GetDetails", "MyFunc", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "PrintFunc", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "SELF.field#gender -> layout_person.field#gender", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "Xform", "count2", "ds", "filter1", "layout_person", "n", "normalize1", "normalize2"];
+exports.compound_child = ["SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "SELF.field#gender -> layout_person.field#gender", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "transform3", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "transform1"];
+exports.compound_parent = ["GetDetails", "GetDetails", "", "GetDetails", "Xform", "Xform", "GetDetails"];
+exports.labels = ["output1", "MyFunc", "dataset", "filter1", "NORMALIZED(\n, DATASET : ds, NO_ITERATIONS : 16TRANSFORMATION : Xform).field#flag == 1", "conditional", "filter1", "n", "dataset", "normalize1", "ds", "dataset", "normalize1", "ds", "dataset", "ds", "SELF.field#chars -> D\"abc~xyz~def~fred\"", "assign", "ds", "record", "record", "normalize1", "16", "ITERATIONS", "normalize1", "16", "Constant", "normalize1", "Xform", "transform", "normalize1", "Xform", "transform", "Xform", "SELF.field#flag -> IF(substring(ds.field#chars) == D\"~\")", "assign", "n", "normalize1", "normalize", "count1", "filter1", "filter", "MyFunc", "count1", "count", "output1", "", "", "output2", "PrintFunc", "dataset", "normalize2", "DeclareData exported", "dataset", "normalize2", "DeclareData exported", "dataset", "DeclareData exported", "layout_person", "dataset", "layout_person", "record", "record", "DeclareData exported", "", "", "normalize2", "count2", "count", "count2", "DeclareData exported", "dataset", "DeclareData exported", "layout_person", "dataset", "layout_person", "record", "record", "DeclareData exported", "", "", "normalize2", "count2", "ITERATIONS", "normalize2", "GetDetails", "transform", "normalize2", "GetDetails", "transform", "GetDetails", "SELF.field#name -> (((((D\"Name) * (layout_person.field#firstname)) * (D\")) * (layout_person.field#middleinitial)) * (D\")) * (layout_person.field#lastname)", "assign", "GetDetails", "SELF.field#gender -> layout_person.field#gender", "assign", "GetDetails", "SELF.field#address -> (((((((D\"Address) * (layout_person.field#street)) * (D\",)) * (layout_person.field#city)) * (D\",)) * (layout_person.field#state)) * (D\")) * (layout_person.field#zip)", "assign", "PrintFunc", "normalize2", "normalize", "output2", "", "", "output2", "", ""];
+exports.records = ["record_layout_person", "(field#personid,field#firstname,field#lastname,field#middleinitial,field#gender,field#street,field#city,field#state,field#zip)", "record_ds", "(field#chars)"];
+exports.transformStruct = ["GetDetails", "(field#name,field#address,field#gender)", "Xform", "(field#flag)", "", "(field#chars)"];
 },{}],"node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
@@ -51412,7 +51246,173 @@ cy.on('click', 'node', function (e) {
 
   tapped[this.id()] = 1 - tapped[this.id()];
 });
-},{"cytoscape":"node_modules/cytoscape/dist/cytoscape.cjs.js","cytoscape-dagre":"node_modules/cytoscape-dagre/cytoscape-dagre.js","../data.js":"data.js","cytoscape-node-html-label":"node_modules/cytoscape-node-html-label/dist/cytoscape-node-html-label.js","cytoscape-expand-collapse":"node_modules/cytoscape-expand-collapse/cytoscape-expand-collapse.js","../../2/temp2.js":"../2/temp2.js","process":"node_modules/process/browser.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"cytoscape":"node_modules/cytoscape/dist/cytoscape.cjs.js","cytoscape-dagre":"node_modules/cytoscape-dagre/cytoscape-dagre.js","../data.js":"data.js","cytoscape-node-html-label":"node_modules/cytoscape-node-html-label/dist/cytoscape-node-html-label.js","cytoscape-expand-collapse":"node_modules/cytoscape-expand-collapse/cytoscape-expand-collapse.js","../../2/temp2.js":"../2/temp2.js","process":"node_modules/process/browser.js"}],"data.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.selectedFunc = void 0;
+
+var _index = require("./src/index.js");
+
+var data = require("../2/temp2.js");
+
+var records = data.records;
+var nodes = data.node;
+console.log("data.js records = ", records);
+console.log(nodes.length);
+var fields = {};
+
+for (var i = 0; i < records.length; i += 2) {
+  var f = records[i + 1].split(",");
+
+  for (var j = 0; j < f.length; j++) {
+    f[j] = f[j].replace('(', '');
+    f[j] = f[j].replace(')', '');
+  }
+
+  console.log("F: ", f);
+  fields[records[i]] = f;
+}
+
+var getLabel = function getLabel(name) {
+  var newLabel = document.createElement("label");
+  newLabel.setAttribute("for", 'radio-button');
+  name = name.replace("field#", "");
+  newLabel.innerHTML = name;
+  newLabel.style.fontSize = 9;
+  newLabel.style.overflowX = scroll;
+  return newLabel;
+};
+
+var getButton = function getButton(name, value) {
+  var newButton = document.createElement("input");
+  newButton.setAttribute("type", 'radio');
+  newButton.setAttribute("id", 'radio-button');
+  newButton.setAttribute("name", name);
+  value = value.replace("field#", "");
+  newButton.setAttribute("value", value);
+  newButton.style.width = '8px';
+  newButton.style.height = '8px';
+  return newButton;
+};
+
+var injectElements = function injectElements(newButton, newLabel, name) {
+  var linebreak = document.createElement("br");
+  document.getElementById(name).appendChild(newButton);
+  document.getElementById(name).appendChild(newLabel);
+  document.getElementById(name).appendChild(linebreak);
+  return;
+};
+
+var selectedFunc = function selectedFunc(name, dependencies, immediate) {
+  document.getElementById("graph-node-selected").replaceChildren();
+  if (dependencies == null) return; // document.getElementById("immediate-fields").replaceChildren();
+
+  console.log("name = " + name, "d = " + dependencies);
+  var ele = document.createElement('div');
+  var ele2 = document.createElement('div');
+  ele.id = 'name';
+  ele.innerHTML = "node : " + name;
+  ele.style.fontSize = 9;
+  ele2.style.fontSize = 9;
+  ele2.innerHTML = 'dependencies : ';
+  document.getElementById("graph-node-selected").appendChild(ele, ele2);
+
+  var _loop = function _loop(_i) {
+    var nb = getButton("graph-node-selected", dependencies[_i]);
+    var nl = getLabel(dependencies[_i]);
+
+    nb.onclick = function (e) {
+      var q = nb.value.replace(".field#", "");
+      q = q.replace("field#", ""); // const q = nb.value;
+
+      (0, _index.submitFunc)(q.slice(0, q.length), null, 1);
+    };
+
+    injectElements(nb, nl, "graph-node-selected");
+  };
+
+  for (var _i = 0; _i < dependencies.length; _i++) {
+    _loop(_i);
+  }
+
+  for (var _i2 = 0; _i2 < immediate.length / 3; _i2++) {
+    // const nb = getButton("immediate-fields",immediate[i]);
+    var nl = getLabel(immediate[_i2]); // nb.onclick = (e) =>{
+    //     submitFunc(nb.value,null,1);
+    // }
+    // injectElements(nb,nl,"immediate-fields");
+  }
+
+  return;
+};
+
+exports.selectedFunc = selectedFunc;
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById("datasets").replaceChildren();
+  document.getElementById("nodes-list").replaceChildren();
+
+  var _loop2 = function _loop2(_i3) {
+    var newLabel = getLabel(records[_i3]);
+    var newButton = getButton('datasets', records[_i3]);
+    newButton.addEventListener('click', function () {
+      document.getElementById("fields").replaceChildren();
+      var recName = newButton.value;
+
+      var _loop4 = function _loop4(_j) {
+        var fieldLabel = getLabel(fields[recName][_j]);
+        var fieldButton = getButton('fields', fields[recName][_j]);
+
+        fieldButton.onclick = function (e) {
+          //  e.preventDefault();
+          var s = recName.substring(0, 6) === "record" ? recName.substring(7) : recName;
+          (0, _index.submitFunc)(s, fieldButton.value, 0);
+        };
+
+        injectElements(fieldButton, fieldLabel, "fields");
+      };
+
+      for (var _j = 0; _j < fields[recName].length; _j++) {
+        _loop4(_j);
+      }
+    });
+    injectElements(newButton, newLabel, "datasets");
+    console.log(_i3);
+  };
+
+  for (var _i3 = 0; _i3 < records.length; _i3 += 2) {
+    _loop2(_i3);
+  }
+
+  var _loop3 = function _loop3(_i4) {
+    var nodeLabel = getLabel(nodes[_i4]);
+    var nodeButton = getButton('nodes-list', nodes[_i4]);
+
+    nodeButton.onclick = function (e) {
+      console.log('node button clicked');
+      var val = nodeButton.value.replace(".", ".field#"); // val.replaceAll(".field#field#",".field#");
+
+      (0, _index.submitFunc)(null, null, -1, val);
+    };
+
+    injectElements(nodeButton, nodeLabel, "nodes-list");
+  };
+
+  for (var _i4 = 0; _i4 < nodes.length; _i4++) {
+    _loop3(_i4);
+  }
+
+  var fileContent = "";
+
+  for (var r = 0; r < records.length; r += 2) {
+    for (var _f = 0; _f < fields[records[r]].length; _f++) {
+      fileContent = (0, _index.getReportDetails)(records[r], fields[records[r]][_f]);
+    }
+  }
+}, false);
+},{"./src/index.js":"src/index.js","../2/temp2.js":"../2/temp2.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -51616,5 +51616,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.js"], null)
-//# sourceMappingURL=/src.a2b27638.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","data.js"], null)
+//# sourceMappingURL=/data.c2b69d8e.js.map
