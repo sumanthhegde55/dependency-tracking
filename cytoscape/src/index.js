@@ -1,11 +1,12 @@
 import cytoscape from "cytoscape";
 import dagre from "cytoscape-dagre";
-
+console.log("dir",process.cwd());
 import { selectedFunc } from "../data.js";
+
 var nodeHtmlLabel = require("cytoscape-node-html-label");
 var expandCollapse = require("cytoscape-expand-collapse");
 
-const data = require("../../temp5.js");
+const data = require("../../2/temp2.js");
 
 const first = data.first;
 const second = data.second;
@@ -18,7 +19,6 @@ const fieldsToNodes_fields = data.fieldsToNodes_fields;
 const fieldsToNodes_nodeName = data.fieldsToNodes_nodeName;
 const transformStruct = data.transformStruct;
 
-// const immediate_fields = data.immediate_fields;
 /*every 3 elements in the array forms [source,target,label] for an edge
   i.e. for some k, 
   data.labels[3*k] = source_name, data.labels[3*k+1] = target_name, data.labels[3*k+2] = label
@@ -46,49 +46,50 @@ if (typeof cytoscape("core", "nodeHtmlLabel") === "undefined") {
 
 let Nodes = {};
 let expand_data = {}; 
+let fieldNames_to_num = {};
+let fieldNames_to_num_counter = 1;
 for(let i=0;i<node.length;i++){
         let obj;
         if(compound_child.includes(node[i])){
             const index = compound_child.indexOf(node[i]);
             const par_id = node.indexOf(compound_parent[index]);
-            console.log(compound_child[index],compound_parent[index])
+            // console.log(compound_child[index],compound_parent[index])
 
             obj = {id : i, label : node[i], parent : par_id};
-
-            if(node[par_id] == "transform"){
-                if(!(par_id in expand_data)) expand_data[par_id] = (String)(node[i]);
-                else expand_data[par_id] += (String)(node[i]);
-            }  
         }
         else obj = {id : i, label : node[i]};
-
-
-        // ------- 30.05.2022 ---------
 
         let node_index; 
         // console.log(node[i]);
         //// start 25.06
         if(fieldsToNodes_nodeName.includes(node[i])){
+
             node_index = fieldsToNodes_nodeName.indexOf(node[i]);
-            // console.log('index = ',node_index);
-            // console.log("fname = ",fieldsToNodes_fields[node_index])
+
 
             const fieldNames = fieldsToNodes_fields[node_index];
 
             for(let l=0;l<fieldNames.length;l++){
               const field = fieldNames[l];
-              obj = { ...obj,[field] : 1}
+              field = field.replace(".field#","");
+              field = field.replace("field#","");
+              let num;
+              if(!(field in fieldNames_to_num)){
+                 fieldNames_to_num[field] = fieldNames_to_num_counter;
+                 fieldNames_to_num_counter += 1;
+              }
+              num = fieldNames_to_num[field];
+              obj = { ...obj,[num] : '1'}
             }
-
+              // obj = {...obj,[i]:'1'};
         }
-        //// 25.06
-        // --------------------------
+
         console.log(obj);
 
         Nodes[i] = ({data:obj});
 }
 // console.log("nodes = " + Nodes);
-
+console.log("fieldNames_to_num : ",fieldNames_to_num);
 let Edges = [];
 let LabelNames = {};
 
@@ -97,7 +98,6 @@ for(let j=0;j<label_arr.length;j+=3){
     const idx_target = node.indexOf(label_arr[j+1]);
     LabelNames[idx_source + "-" + idx_target] = label_arr[j+2];
 }
-console.log("labelnames ",LabelNames);
 
 for(let i=0;i<first.length;i++){
 
@@ -106,7 +106,7 @@ for(let i=0;i<first.length;i++){
   if(s in LabelNames) l = LabelNames[s];
 
   const obj = {data : {source : idx[first[i]], target : idx[second[i]], label : l}};
-  console.log(s,i,obj);
+  // console.log(i,obj);
   Edges.push(obj);
 }
 
@@ -120,10 +120,10 @@ for(let i=0;i<keys.length;i++){
   }
   n.push(Nodes[i]);
 }
-console.log("n = ");
-for (let i=0;i<n.length;i++) {
-  console.log(n[i]);
-}
+// console.log("n = ");
+// for (let i=0;i<n.length;i++) {
+//   console.log(n[i]);
+// }
 var elems = {
     nodes : n,
     edges : Edges,
@@ -179,7 +179,6 @@ var cy = (window.cy = cytoscape({
     });
     //api.collapseAll();
   },
-
   style: [
     //CORE
     {
@@ -377,14 +376,14 @@ var cy = (window.cy = cytoscape({
         'opacity':'1',
       }
     }, 
-      // {
-      //   selector:'.clickedNode',
-      //   style:{
-      //      'border-color':'red',
-      //   }
-      // },
+      {
+        selector:'.clickedNode',
+        style:{
+           'border-color':'red',
+           'text-max-width' : "100000",
+        }
+      },
   ],
-
   layout: {
     name: "dagre",
     // name: "dagre",
@@ -395,12 +394,67 @@ var cy = (window.cy = cytoscape({
     // spacingFactor: 1.2,
   },
 
+
+
+
+
+
+  // layout: {
+  //   name: "dagre"
+  // },
+
+  // style: [
+  //   {
+    //   selector: "node",
+    //   style: {
+    //     label: "data(label)",
+    //     shape: "roundrectangle",
+    //     width: "1000px",
+    //     height: "100px",
+    //     textWrap: "wrap",
+    //     "text-valign": "center",
+    //     "text-halign": "center",
+    //     "background-color": "grey",
+    //     "border-color": "black",
+    //     "border-width": 2,
+    //   }
+    // },
+    // {
+    //   selector: ':parent',
+    //   css: {
+    //     width:'2000px',
+    //     height:'30000px',
+    //   }
+    // },
+    // {
+    //   selector: ':child',
+    //   css: {
+    //     width:"900px",
+    //     height:"100px",
+    //     opacity:'80%'
+    //   }
+    // },
+    // {
+  //     selector : ".hidden",
+  //     style:{
+  //       display:'none',
+  //     },
+  //   },
+  //   {
+  //     selector: "edge",
+  //     style: {
+  //       "curve-style": "bezier",
+  //       width: 4,
+  //       "target-arrow-shape": "triangle",
+  //       "line-color": "#9dbaea",
+  //       "target-arrow-color": "#9dbaea"
+  //     }
+  //   }
+  // ],
   elements:elems,
   
 }));
 
-
-// cy.nodes().filter('node[layout_t_recs.field\\#city]!=1').addClass('semitransp');
 
 let selected_nodes = null;
 
@@ -417,25 +471,36 @@ export const submitFunc = (record,field,flag,label=null) => {
   }
 
   let queryVal;
-  if(!flag){
-    field = field.replace("#","\\#");
+  if(flag == 0){
+    field = field.replace("field#","");
     console.log("record = ",record,"field = ",field);
-    queryVal = "node[" + record + "." + field + "]=1";
+    const search = record + field;
+    console.log(search);
+    search = fieldNames_to_num[search];
+    console.log(search);
+    queryVal = `node[` + search + ` = '1']`;
   }
-  else if(flag > 0) queryVal = "node[" + record + "]=1",queryVal = queryVal.replace("#","\\#");
+  else if(flag > 0){
+    record = record.replace(".field#","");
+    record = record.replace("field#","");
+    record = record.replace(".","");
+    console.log("record = ",record);
+    queryVal = `node[` + fieldNames_to_num[record] + ` = '1']`,queryVal = queryVal.replace("#","\\#");
+  }
   else{
     console.log('label ' + label);
-    queryVal = "node[label=" + "'" + label + "'" + "]";
+    queryVal = `node[label=` + `'` + label + `'` + `]`;
   }
-  console.log(queryVal);
-  selected_nodes = cy.nodes().filter(queryVal);
-
+  console.log("query = ",queryVal);
+  selected_nodes = cy.filter(queryVal);
+  // console.log(selected_nodes[0]);
   cy.$("*").not(selected_nodes).addClass('semitransp');
   cy.$("*").not(selected_nodes).connectedEdges().addClass('semitransp');
+  selected_nodes.removeClass('semitransp');
+  selected_nodes.connectedEdges().removeClass('semitransp');
   selected_nodes.addClass('highlight');
   selected_nodes.connectedEdges().addClass('highlight');
   selected_nodes.connectedEdges().addClass('selected_edges');
-
 };
 
 const clickFunc = (s) => {
@@ -460,20 +525,28 @@ const clickFunc = (s) => {
 
 //---------- for collapse expand 
 const removed = {};
-// cy.on('cxttapstart','node',function(){
-//   const node = cy.nodes('#' + this.id());
-//   const id = this.id();
-//   node.successors().targets().addClass("hidden");
-//   if(!(id in removed)){
-//       removed[id] = 1;
-//   }
-//   else{
-//       removed[id] = 1 - removed[id];
-//   }
-//   console.log(removed[id]);
-//   if(removed[id]) node.successors().targets().addClass("hidden");
-//   else node.successors().targets().removeClass("hidden"); 
-// });
+cy.on('cxttapstart','node',function(){
+  const node = cy.nodes('#' + this.id());
+  const id = this.id();
+  node.successors().targets().addClass("hidden");
+  if(!(id in removed)){
+      removed[id] = 1;
+  }
+  else{
+      removed[id] = 1 - removed[id];
+  }
+  // console.log(removed[id]);
+  if(removed[id]){
+    node.successors().targets().addClass("hidden");
+    node.successors().sources('[id!=\'' + id + '\']').addClass("hidden");
+    node.successors().siblings('[id!=\'' + id + '\']').addClass("hidden");
+    node.successors().addClass("hidden");
+  }
+  else{
+    node.successors().removeClass("hidden"); 
+    // node.successors().('[id!=\'' + id + '\']').removeClass("hidden");
+  }
+});
 // ---------------
 let tapped={};
 cy.on('click', 'node', function(e){
@@ -496,9 +569,18 @@ cy.on('click', 'node', function(e){
     neigh.removeClass('highlight').outgoers().union(neigh.incomers()).removeClass('highlight');
     cy.$('#' + this.id()).removeClass('clickedNode');
     // for records only
-    console.log(cy.$('#' + this.id()).data('label'));
+    if(selected_nodes){
+      console.log('clearing selected_nodes in clickFunc...');
+      cy.$("*").not(selected_nodes).removeClass('semitransp');
+      cy.$("*").not(selected_nodes).connectedEdges().removeClass('semitransp');
+      selected_nodes.removeClass('highlight');
+      selected_nodes.connectedEdges().removeClass('highlight');
+      selected_nodes.connectedEdges().removeClass('selected_edges');
+      selected_nodes = null;
+    }
+    // console.log(cy.$('#' + this.id()).data('label'));
     const label = cy.$('#' + this.id()).data('label');
-    const s = label.substring(0,6).toUpperCase();
   }
   tapped[this.id()] = 1 - tapped[this.id()];
 });
+

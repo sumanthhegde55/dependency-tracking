@@ -1,5 +1,6 @@
-import {submitFunc} from "./src/index.js";
-const data = require("../temp5.js");
+import {submitFunc, getReportDetails , download_func} from "./src/index.js";
+
+const data = require("../2/temp2.js");
 
 const records = data.records;
 
@@ -51,7 +52,8 @@ const injectElements = (newButton,newLabel,name) => {
 
 export const selectedFunc = (name,dependencies,immediate) => {
     document.getElementById("graph-node-selected").replaceChildren();
-    document.getElementById("immediate-fields").replaceChildren();
+    if(dependencies == null) return;
+    // document.getElementById("immediate-fields").replaceChildren();
     console.log("name = " + name,"d = " + dependencies);
     const ele= document.createElement('div');
     const ele2 = document.createElement('div');
@@ -67,25 +69,29 @@ export const selectedFunc = (name,dependencies,immediate) => {
         const nl = getLabel(dependencies[i]);
 
         nb.onclick = (e) =>{
-            submitFunc(nb.value,null,1);
+            let q = nb.value.replace(".field#","");
+            q = q.replace("field#","");
+            // const q = nb.value;
+            submitFunc(q.slice(0,q.length),null,1);
         }
         injectElements(nb,nl,"graph-node-selected");
     }
 
     for(let i=0;i<immediate.length/3;i++){
-        const nb = getButton("immediate-fields",immediate[i]);
+        // const nb = getButton("immediate-fields",immediate[i]);
         const nl = getLabel(immediate[i]);
 
-        nb.onclick = (e) =>{
-            submitFunc(nb.value,null,1);
-        }
-        injectElements(nb,nl,"immediate-fields");
+        // nb.onclick = (e) =>{
+        //     submitFunc(nb.value,null,1);
+        // }
+        // injectElements(nb,nl,"immediate-fields");
     }
     return;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("datasets").replaceChildren();
+    document.getElementById("nodes-list").replaceChildren();
     for(let i=0;i<records.length;i+=2){
         const newLabel = getLabel(records[i]);
         const newButton = getButton('datasets',records[i]);
@@ -116,9 +122,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const nodeButton = getButton('nodes-list',nodes[i]);
         nodeButton.onclick = (e) => {
             console.log('node button clicked');
-            submitFunc(null,null,-1,nodeButton.value);
+            let val = nodeButton.value.replace(".",".field#");
+            // val.replaceAll(".field#field#",".field#");
+            submitFunc(null,null,-1,val);
         }
 
         injectElements(nodeButton,nodeLabel,"nodes-list");
     }
+   let fileContent = "";
+    for(let r=0;r<records.length;r+=2){
+        for(let f=0;f<fields[records[r]].length;f++){
+            fileContent = getReportDetails(records[r],fields[records[r]][f]);
+        }
+    }
+    
 }, false);
